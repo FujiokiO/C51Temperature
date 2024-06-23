@@ -173,34 +173,23 @@ class SerialApp:
             if self.serial_port.in_waiting:
                 data = self.serial_port.read(1)
                 buffer += data
-                if len(buffer) >= 4 and buffer[0] == 0x55 and buffer[-1] == 0xaa:
-                    if len(buffer) == 4:
-                        temp = (buffer[1] << 8) | buffer[2]
+                if len(buffer) >= 6 and buffer[0] == 0x55 and buffer[-1] == 0xaa:
+                    if buffer[1] == 0x00 and len(buffer) == 6:
+                        # 解析单片机发送的当前温度
+                        temp = (buffer[3] << 8) | buffer[4]
                         self.last_temp = temp / 100.0
                         current_time = time.time() - self.start_time
                         self.data_queue.put((current_time, self.last_temp))
-                    buffer = bytearray()
+                    elif buffer[1] == 0x06 and len(buffer) == 6:
+                        # 解析确认帧
+                        print("收到确认帧")
+                    buffer = bytearray()  # 清空缓冲区
             time.sleep(0.01)
 
     def stop_reading(self):
         self.running = False
         self.start_button.config(state=tk.NORMAL)
         self.stop_button.config(state=tk.DISABLED)
-
-    def read_serial(self):
-        buffer = bytearray()
-        while self.running:
-            if self.serial_port.in_waiting:
-                data = self.serial_port.read(1)
-                buffer += data
-                if len(buffer) >= 4 and buffer[0] == 0x55 and buffer[-1] == 0xaa:
-                    if len(buffer) == 4:
-                        temp = (buffer[1] << 8) | buffer[2]
-                        self.last_temp = temp / 100.0
-                        current_time = time.time() - self.start_time
-                        self.data_queue.put((current_time, self.last_temp))
-                    buffer = bytearray()
-            time.sleep(0.01)
 
     def set_temperature(self):
         if self.serial_port and self.serial_port.is_open:
@@ -209,7 +198,7 @@ class SerialApp:
                 if 0 <= temp <= 19999:
                     high_byte = (temp >> 8) & 0xFF
                     low_byte = temp & 0xFF
-                    command = bytes([0x55, 0x01, high_byte, low_byte, 0xaa])
+                    command = bytes([0x55, 0x01, 0x00, high_byte, low_byte, 0xaa])
                     self.serial_port.write(command)
                     print(f"设定温度: {temp}, 命令: {command}")
                 else:
@@ -219,7 +208,7 @@ class SerialApp:
 
     def request_temperature(self):
         if self.serial_port and self.serial_port.is_open:
-            command = bytes([0x55, 0x02, 0x00, 0x00, 0xaa])
+            command = bytes([0x55, 0x02, 0x00, 0x00, 0x00, 0xaa])
             self.serial_port.write(command)
             print("请求当前温度")
 
@@ -329,7 +318,7 @@ class SerialApp:
         self.plot_app.quit()
 
 
-if __name__ == "__main__":
+if __name__    == "__main__":
     root = tk.Tk()
     app = SerialApp(root)
     root.protocol("WM_DELETE_WINDOW", app.on_closing)
