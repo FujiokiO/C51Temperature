@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/23/2024 16:14:28 PAGE 1   
+C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/23/2024 23:33:08 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE SEPTEMPERATUE
@@ -52,178 +52,188 @@ line level    source
   43          // 温度数据
   44          u16 temperature = 0;
   45          
-  46          // 发送温度数据的计数器
-  47          u16 send_counter = 0;
-  48          
-  49                           
-  50          // 发送一个字节
-  51          void send_byte(u8 dat) {
-  52   1          SBUF = dat;
-  53   1          while(!TI);
-  54   1          TI = 0;
-  55   1      }
-C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/23/2024 16:14:28 PAGE 2   
+  46          // 发送一个字节
+  47          void send_byte(u8 dat) {
+  48   1          SBUF = dat;
+  49   1          while(!TI);
+  50   1          TI = 0;
+  51   1      }
+  52          
+  53          // 发送温度数据
+  54          void send_temperature() {
+  55   1          send_byte(0x55);  // 起始字节
+C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/23/2024 23:33:08 PAGE 2   
 
-  56          
-  57          // 发送温度数据
-  58          void send_temperature() {
-  59   1          send_byte(0x55);  // 起始字节
-  60   1          send_byte(0x00);
-  61   1          send_byte(0x00);
-  62   1          send_byte((u8)(temperature >> 8));  // 高字节
-  63   1          send_byte((u8)(temperature));  // 低字节
-  64   1          send_byte(0xaa);  // 结束字节
-  65   1      }
-  66          
-  67          // 发送确认帧
-  68          void send_confirmation() {
-  69   1          send_byte(0x55); 
-  70   1          send_byte(0x06); 
-  71   1          send_byte(0x00);
-  72   1          send_byte(0x00);
-  73   1          send_byte(0x00);
-  74   1          send_byte(0xaa);
-  75   1      }
-  76          
-  77          // 串口中断服务函数
-  78          void serial_isr() interrupt 4 {
-  79   1          if (RI) {
-  80   2              RI = 0;
-  81   2              Re_Buff[ReceiveCounts++] = SBUF;
-  82   2              
-  83   2              if (ReceiveCounts == 6) {
-  84   3                  ReceiveCounts = 0;
-  85   3                  
-  86   3                  // 处理设置温度值的命令
-  87   3                  if ((Re_Buff[0] == 0x55) && (Re_Buff[1] == 0x01) && (Re_Buff[5] == 0xaa)) {
-  88   4                      SetValue = (Re_Buff[3] << 8) | Re_Buff[4];
-  89   4                      integral = 0; // 重置积分项
-  90   4                      send_confirmation();
-  91   4                  }
-  92   3                  // 处理设置PID参数的命令
-  93   3                  else if ((Re_Buff[0] == 0x55) && (Re_Buff[1] == 0x02) && (Re_Buff[5] == 0xaa)) {
-  94   4                      Kp = Re_Buff[2] / 10.0;
-  95   4                      Ki = Re_Buff[3] / 100.0;
-  96   4                      Kd = Re_Buff[4] / 10.0;
-  97   4                  }
-  98   3              }
-  99   2          }
- 100   1          
- 101   1          if (TI) {
- 102   2              TI = 0;
- 103   2          }
- 104   1      }
- 105          
- 106          
- 107          // 主函数
- 108          void main() {
- 109   1          // 串口初始化
- 110   1          SCON = 0x50;    
- 111   1          TMOD = 0x20;
- 112   1          TL1 = TH1 = 0xFD;    // 9600 baud @ 11.0592MHz
- 113   1          TR1 = 1;
- 114   1              
- 115   1          // 中断初始化
- 116   1          IT0 = 1;
- 117   1          IT1 = 1;
-C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/23/2024 16:14:28 PAGE 3   
+  56   1          send_byte(0x00);
+  57   1          send_byte(0x00);
+  58   1          send_byte((u8)(temperature >> 8));  // 高字节
+  59   1          send_byte((u8)(temperature));  // 低字节
+  60   1          send_byte(0xaa);  // 结束字节
+  61   1      }
+  62          
+  63          // 发送确认帧
+  64          void send_confirmation() {
+  65   1          send_byte(0x55); 
+  66   1          send_byte(0x06); 
+  67   1          send_byte(0x00);
+  68   1          send_byte(0x00);
+  69   1          send_byte(0x00);
+  70   1          send_byte(0xaa);
+  71   1      }
+  72          
+  73          // 主函数
+  74          void main() {
+  75   1          // 串口初始化
+  76   1          SCON = 0x50;    
+  77   1          TMOD = 0x20;
+  78   1          TL1 = TH1 = 0xFD;
+  79   1          TR1 = 1;
+  80   1              
+  81   1          // 定时器0初始化
+  82   1          TMOD |= 0x01;  // 设置定时器0为模式1 (16位定时器)
+  83   1          TH0 = 0x3C;    // 设置初值以便定时 50ms (假设晶振频率为11.0592MHz)
+  84   1          TL0 = 0xB0;
+  85   1          ET0 = 1;       // 使能定时器0中断
+  86   1          TR0 = 1;       // 启动定时器0
+  87   1      
+  88   1          // 中断初始化
+  89   1          IT0 = 1;
+  90   1          IT1 = 1;
+  91   1          EX0 = 1;
+  92   1          EX1 = 1;
+  93   1          ES = 1;  // 使能串口中断
+  94   1          EA = 1;  // 使能全局中断
+  95   1          
+  96   1          // 设定值初始化
+  97   1          SetValue = 5000;  
+  98   1          
+  99   1          while (1) {
+ 100   2              // 主循环
+ 101   2          }
+ 102   1      }
+ 103          
+ 104          // 外部中断0服务函数
+ 105          void int0_isr() interrupt 0 {
+ 106   1          u16 x;
+ 107   1          float pid_output;
+ 108   1      
+ 109   1          // 读取传感器数据
+ 110   1          *((u8 *)&x + 1) = SPT_LOW_INPORT;
+ 111   1          *((u8 *)&x + 0) = SPT_HIG_INPORT;
+ 112   1          
+ 113   1          // 更新温度数据
+ 114   1          temperature = x;
+ 115   1          
+ 116   1          // 计算误差
+ 117   1          et_2 = et_1;
+C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/23/2024 23:33:08 PAGE 3   
 
- 118   1          EX0 = 1;
- 119   1          EX1 = 1;
- 120   1          ES = 1;  // 使能串口中断
- 121   1          EA = 1;  // 使能全局中断
- 122   1          
- 123   1          // 设定值初始化
- 124   1          SetValue = 5000;  
- 125   1              
- 126   1          while (1) {
- 127   2              // 周期性发送温度数据
- 128   2              if (++send_counter >= 10000) {  // 减小发送间隔，提高响应速度
- 129   3                  send_counter = 0;
- 130   3                  send_temperature();
- 131   3              }
- 132   2          }
- 133   1      }
- 134          
- 135          // 外部中断0服务函数
- 136          void int0_isr() interrupt 0 {
- 137   1          u16 x;
- 138   1          float pid_output;
- 139   1      
- 140   1          // 读取传感器数据
- 141   1          *((u8 *)&x + 1) = SPT_LOW_INPORT;
- 142   1          *((u8 *)&x + 0) = SPT_HIG_INPORT;
- 143   1          
- 144   1          // 更新温度数据
- 145   1          temperature = x;
- 146   1          
- 147   1          // 计算误差
- 148   1          et_2 = et_1;
- 149   1          et_1 = et;
- 150   1          et = SetValue - (int)x;
- 151   1      
- 152   1          // 计算积分项 (使用梯形积分法)
- 153   1          integral += (et + et_1) / 2.0f;
- 154   1          
- 155   1          // 应用积分限幅，防止积分饱和
- 156   1          if (integral > 1000) integral = 1000;
- 157   1          if (integral < -1000) integral = -1000;
- 158   1      
- 159   1          // 计算微分项
- 160   1          derivative = et - et_1;
- 161   1      
- 162   1          // PID控制算法
- 163   1          pid_output = Kp * et + Ki * integral + Kd * derivative;
- 164   1      
- 165   1          // 更新PWM值
- 166   1          pwm += pid_output;
- 167   1      
- 168   1          // PWM限幅
- 169   1          if (pwm > 255) pwm = 255;
- 170   1          if (pwm < 0) pwm = 0;
+ 118   1          et_1 = et;
+ 119   1          et = SetValue - (int)x;
+ 120   1      
+ 121   1          // 计算积分项 (使用梯形积分法)
+ 122   1          integral += (et + et_1) / 2.0f;
+ 123   1          
+ 124   1          // 应用积分限幅，防止积分饱和
+ 125   1          if (integral > 1000) integral = 1000;
+ 126   1          if (integral < -1000) integral = -1000;
+ 127   1      
+ 128   1          // 计算微分项
+ 129   1          derivative = et - et_1;
+ 130   1      
+ 131   1          // PID控制算法
+ 132   1          pid_output = Kp * et + Ki * integral + Kd * derivative;
+ 133   1      
+ 134   1          // 更新PWM值
+ 135   1          pwm += pid_output;
+ 136   1      
+ 137   1          // PWM限幅
+ 138   1          if (pwm > 255) pwm = 255;
+ 139   1          if (pwm < 0) pwm = 0;
+ 140   1      
+ 141   1          // 输出PWM
+ 142   1          PWM_OUT_PORT = (u8)pwm;
+ 143   1      
+ 144   1          // 更新显示缓冲区
+ 145   1          DispBuff[2] = x / 100000;
+ 146   1          x = x % 100000;
+ 147   1          DispBuff[3] = x / 10000;
+ 148   1          x = x % 10000;
+ 149   1          DispBuff[4] = x / 1000;
+ 150   1          x = x % 1000;
+ 151   1          DispBuff[5] = x / 100;
+ 152   1          x = x % 100;
+ 153   1          DispBuff[6] = x / 10;
+ 154   1          x = x % 10;
+ 155   1          DispBuff[7] = x;
+ 156   1      }
+ 157          
+ 158          // 定时器0中断服务函数
+ 159          void timer0_isr() interrupt 1 {
+ 160   1          // 重装定时器初值
+ 161   1          TH0 = 0x3C;
+ 162   1          TL0 = 0xB0;
+ 163   1          
+ 164   1          // 发送温度数据
+ 165   1          send_temperature();
+ 166   1      }
+ 167          
+ 168          // 外部中断1服务函数
+ 169          void int1_isr() interrupt 2 {
+ 170   1          static u8 CurrentBit = 0x01;
  171   1      
- 172   1          // 输出PWM
- 173   1          PWM_OUT_PORT = (u8)pwm;
- 174   1      
- 175   1          // 更新显示缓冲区
- 176   1          DispBuff[2] = x / 100000;
- 177   1          x = x % 100000;
- 178   1          DispBuff[3] = x / 10000;
- 179   1          x = x % 10000;
-C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/23/2024 16:14:28 PAGE 4   
+ 172   1          // 数码管显示编码
+ 173   1          u8 code SevenSegCode[10] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
+ 174   1          u8 code SevenSegBT[8] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
+ 175   1              
+ 176   1          DT_DI_PORT = 0;
+ 177   1          DT_DA_PORT = SevenSegCode[DispBuff[CurrentBit]];
+ 178   1          DT_DI_PORT = SevenSegBT[CurrentBit];
+ 179   1              
+C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/23/2024 23:33:08 PAGE 4   
 
- 180   1          DispBuff[4] = x / 1000;
- 181   1          x = x % 1000;
- 182   1          DispBuff[5] = x / 100;
- 183   1          x = x % 100;
- 184   1          DispBuff[6] = x / 10;
- 185   1          x = x % 10;
- 186   1          DispBuff[7] = x;
- 187   1      }
- 188          
- 189          // 外部中断1服务函数
- 190          void int1_isr() interrupt 2 {
- 191   1          static u8 CurrentBit = 0x01;
- 192   1      
- 193   1          // 数码管显示编码
- 194   1          u8 code SevenSegCode[10] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
- 195   1          u8 code SevenSegBT[8] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
- 196   1              
- 197   1          DT_DI_PORT = 0;
- 198   1          DT_DA_PORT = SevenSegCode[DispBuff[CurrentBit]];
- 199   1          DT_DI_PORT = SevenSegBT[CurrentBit];
- 200   1              
- 201   1          CurrentBit++;
- 202   1          CurrentBit = CurrentBit % 8;
- 203   1      }
+ 180   1          CurrentBit++;
+ 181   1          CurrentBit = CurrentBit % 8;
+ 182   1      }
+ 183          
+ 184          // 串口中断服务函数
+ 185          void serial_isr() interrupt 4 {
+ 186   1          if (RI) {
+ 187   2              RI = 0;
+ 188   2              Re_Buff[ReceiveCounts++] = SBUF;
+ 189   2              
+ 190   2              if (ReceiveCounts == 6) {
+ 191   3                  ReceiveCounts = 0;
+ 192   3                  
+ 193   3                  // 处理设置温度值的命令
+ 194   3                  if ((Re_Buff[0] == 0x55) && (Re_Buff[1] == 0x01) && (Re_Buff[5] == 0xaa)) {
+ 195   4                      SetValue = (Re_Buff[3] << 8) | Re_Buff[4];
+ 196   4                      integral = 0; // 重置积分项
+ 197   4                      send_confirmation();
+ 198   4                  }
+ 199   3                  // 处理设置PID参数的命令
+ 200   3                  else if ((Re_Buff[0] == 0x55) && (Re_Buff[1] == 0x02) && (Re_Buff[5] == 0xaa)) {
+ 201   4                      Kp = Re_Buff[2] / 10.0;
+ 202   4                      Ki = Re_Buff[3] / 100.0;
+ 203   4                      Kd = Re_Buff[4] / 10.0;
+ 204   4                      send_confirmation();
+ 205   4                  }
+ 206   3              }
+ 207   2          }
+ 208   1          
+ 209   1          if (TI) {
+ 210   2              TI = 0;
+ 211   2          }
+ 212   1      }
+ 213          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   1005    ----
+   CODE SIZE        =   1018    ----
    CONSTANT SIZE    =     18    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =     52       6
+   DATA SIZE        =     50       6
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

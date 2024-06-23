@@ -17,7 +17,7 @@
             "config": {
                 "conns": {
                     "serial": {
-                        "port": "COM2",
+                        "port": "COM1",
                         "baudrate": 9600,
                         "bytesize": 8,
                         "parity": "None",
@@ -52,15 +52,15 @@
                 },
                 "plugin": {
                     "version": 1,
-                    "receiveAscii": true,
-                    "receiveAutoLinefeed": false,
-                    "receiveAutoLindefeedTime": 200,
-                    "sendAscii": true,
+                    "receiveAscii": false,
+                    "receiveAutoLinefeed": true,
+                    "receiveAutoLindefeedTime": 150,
+                    "sendAscii": false,
                     "sendScheduled": false,
                     "sendScheduledTime": 300,
                     "sendAutoNewline": false,
                     "useCRLF": true,
-                    "showTimestamp": false,
+                    "showTimestamp": true,
                     "recordSend": false,
                     "saveLogPath": "",
                     "saveLogPath2": "",
@@ -71,6 +71,9 @@
                     "sendEscape": false,
                     "customSendItems": [],
                     "sendHistoryList": [
+                        "55 01 00 00 1f aa",
+                        "55 01 00 00 0c aa",
+                        "55 01 00 0b b8 aa",
                         "0x55 0x01 0x00 0x00 0xaa",
                         "U\\x01\\x1f@\\xaa",
                         "0x55 0x10 0x11 0x40 0xaa",
@@ -121,7 +124,7 @@
                 },
                 "plugin": {
                     "version": 1,
-                    "sendAscii": true,
+                    "sendAscii": false,
                     "useCRLF": false,
                     "sendEscape": true,
                     "code": {

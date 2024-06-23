@@ -70,3 +70,48 @@
 2024-06-23 15:13:14,545 - [INFO] -  data path:F:/课设/综合实践/comtool/_internal
 2024-06-23 15:13:15,344 - [INFO] -  Already latest version!
 2024-06-23 15:16:27,994 - [INFO] -  Close window
+2024-06-23 22:43:26,568 - [INFO] -  Config path: F:\课设\综合实践\comtool\config.json
+2024-06-23 22:43:26,568 - [INFO] -  Log path: F:\课设\综合实践\comtool\run.log
+2024-06-23 22:43:26,568 - [INFO] -  loading config from F:\课设\综合实践\comtool\config.json
+2024-06-23 22:43:26,569 - [INFO] -  loading config complete
+2024-06-23 22:43:26,887 - [INFO] -  init main window
+2024-06-23 22:43:27,008 - [INFO] -  icon path: F:/课设/综合实践/comtool/_internal/assets/logo.png
+2024-06-23 22:43:27,276 - [INFO] -  init main window complete
+2024-06-23 22:43:27,277 - [INFO] -  load plugin item 收发
+2024-06-23 22:43:27,512 - [INFO] -  load plugin item 协议
+2024-06-23 22:43:27,524 - [INFO] -  load plugin item 终端
+2024-06-23 22:43:27,532 - [INFO] -  load plugin item 图表
+2024-06-23 22:43:27,542 - [INFO] -  load plugin items complete
+2024-06-23 22:43:27,542 - [INFO] -  data path:F:/课设/综合实践/comtool/_internal
+2024-06-23 22:43:28,162 - [INFO] -  Already latest version!
+2024-06-23 23:07:22,724 - [INFO] -  Close window
+2024-06-23 23:10:19,803 - [INFO] -  Config path: F:\课设\综合实践\comtool\config.json
+2024-06-23 23:10:19,803 - [INFO] -  Log path: F:\课设\综合实践\comtool\run.log
+2024-06-23 23:10:19,804 - [INFO] -  loading config from F:\课设\综合实践\comtool\config.json
+2024-06-23 23:10:19,804 - [INFO] -  loading config complete
+2024-06-23 23:10:20,009 - [INFO] -  init main window
+2024-06-23 23:10:20,107 - [INFO] -  icon path: F:/课设/综合实践/comtool/_internal/assets/logo.png
+2024-06-23 23:10:20,355 - [INFO] -  init main window complete
+2024-06-23 23:10:20,356 - [INFO] -  load plugin item 收发
+2024-06-23 23:10:20,647 - [INFO] -  load plugin item 协议
+2024-06-23 23:10:20,661 - [INFO] -  load plugin item 终端
+2024-06-23 23:10:20,669 - [INFO] -  load plugin item 图表
+2024-06-23 23:10:20,677 - [INFO] -  load plugin items complete
+2024-06-23 23:10:20,677 - [INFO] -  data path:F:/课设/综合实践/comtool/_internal
+2024-06-23 23:10:21,085 - [INFO] -  Already latest version!
+2024-06-23 23:10:59,880 - [INFO] -  Close window
+2024-06-23 23:23:21,684 - [INFO] -  Config path: F:\课设\综合实践\comtool\config.json
+2024-06-23 23:23:21,684 - [INFO] -  Log path: F:\课设\综合实践\comtool\run.log
+2024-06-23 23:23:21,684 - [INFO] -  loading config from F:\课设\综合实践\comtool\config.json
+2024-06-23 23:23:21,684 - [INFO] -  loading config complete
+2024-06-23 23:23:21,849 - [INFO] -  init main window
+2024-06-23 23:23:21,940 - [INFO] -  icon path: F:/课设/综合实践/comtool/_internal/assets/logo.png
+2024-06-23 23:23:22,185 - [INFO] -  init main window complete
+2024-06-23 23:23:22,186 - [INFO] -  load plugin item 收发
+2024-06-23 23:23:22,416 - [INFO] -  load plugin item 协议
+2024-06-23 23:23:22,425 - [INFO] -  load plugin item 终端
+2024-06-23 23:23:22,443 - [INFO] -  load plugin item 图表
+2024-06-23 23:23:22,452 - [INFO] -  load plugin items complete
+2024-06-23 23:23:22,452 - [INFO] -  data path:F:/课设/综合实践/comtool/_internal
+2024-06-23 23:23:22,858 - [INFO] -  Already latest version!
+2024-06-23 23:36:52,458 - [INFO] -  Close window

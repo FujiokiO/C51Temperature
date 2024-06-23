@@ -43,10 +43,6 @@ u8 Re_Buff[6];
 // 温度数据
 u16 temperature = 0;
 
-// 发送温度数据的计数器
-u16 send_counter = 0;
-
-		 
 // 发送一个字节
 void send_byte(u8 dat) {
     SBUF = dat;
@@ -74,44 +70,21 @@ void send_confirmation() {
     send_byte(0xaa);
 }
 
-// 串口中断服务函数
-void serial_isr() interrupt 4 {
-    if (RI) {
-        RI = 0;
-        Re_Buff[ReceiveCounts++] = SBUF;
-        
-        if (ReceiveCounts == 6) {
-            ReceiveCounts = 0;
-            
-            // 处理设置温度值的命令
-            if ((Re_Buff[0] == 0x55) && (Re_Buff[1] == 0x01) && (Re_Buff[5] == 0xaa)) {
-                SetValue = (Re_Buff[3] << 8) | Re_Buff[4];
-                integral = 0; // 重置积分项
-                send_confirmation();
-            }
-            // 处理设置PID参数的命令
-            else if ((Re_Buff[0] == 0x55) && (Re_Buff[1] == 0x02) && (Re_Buff[5] == 0xaa)) {
-                Kp = Re_Buff[2] / 10.0;
-                Ki = Re_Buff[3] / 100.0;
-                Kd = Re_Buff[4] / 10.0;
-            }
-        }
-    }
-    
-    if (TI) {
-        TI = 0;
-    }
-}
-
-
 // 主函数
 void main() {
     // 串口初始化
     SCON = 0x50;    
     TMOD = 0x20;
-    TL1 = TH1 = 0xFD;    // 9600 baud @ 11.0592MHz
+    TL1 = TH1 = 0xFD;
     TR1 = 1;
         
+    // 定时器0初始化
+    TMOD |= 0x01;  // 设置定时器0为模式1 (16位定时器)
+    TH0 = 0x3C;    // 设置初值以便定时 50ms (假设晶振频率为11.0592MHz)
+    TL0 = 0xB0;
+    ET0 = 1;       // 使能定时器0中断
+    TR0 = 1;       // 启动定时器0
+
     // 中断初始化
     IT0 = 1;
     IT1 = 1;
@@ -122,13 +95,9 @@ void main() {
     
     // 设定值初始化
     SetValue = 5000;  
-        
+    
     while (1) {
-        // 周期性发送温度数据
-        if (++send_counter >= 10000) {  // 减小发送间隔，提高响应速度
-            send_counter = 0;
-            send_temperature();
-        }
+        // 主循环
     }
 }
 
@@ -186,6 +155,16 @@ void int0_isr() interrupt 0 {
     DispBuff[7] = x;
 }
 
+// 定时器0中断服务函数
+void timer0_isr() interrupt 1 {
+    // 重装定时器初值
+    TH0 = 0x3C;
+    TL0 = 0xB0;
+    
+    // 发送温度数据
+    send_temperature();
+}
+
 // 外部中断1服务函数
 void int1_isr() interrupt 2 {
     static u8 CurrentBit = 0x01;
@@ -201,3 +180,34 @@ void int1_isr() interrupt 2 {
     CurrentBit++;
     CurrentBit = CurrentBit % 8;
 }
+
+// 串口中断服务函数
+void serial_isr() interrupt 4 {
+    if (RI) {
+        RI = 0;
+        Re_Buff[ReceiveCounts++] = SBUF;
+        
+        if (ReceiveCounts == 6) {
+            ReceiveCounts = 0;
+            
+            // 处理设置温度值的命令
+            if ((Re_Buff[0] == 0x55) && (Re_Buff[1] == 0x01) && (Re_Buff[5] == 0xaa)) {
+                SetValue = (Re_Buff[3] << 8) | Re_Buff[4];
+                integral = 0; // 重置积分项
+                send_confirmation();
+            }
+            // 处理设置PID参数的命令
+            else if ((Re_Buff[0] == 0x55) && (Re_Buff[1] == 0x02) && (Re_Buff[5] == 0xaa)) {
+                Kp = Re_Buff[2] / 10.0;
+                Ki = Re_Buff[3] / 100.0;
+                Kd = Re_Buff[4] / 10.0;
+                send_confirmation();
+            }
+        }
+    }
+    
+    if (TI) {
+        TI = 0;
+    }
+}
+
