@@ -46,22 +46,51 @@ u16 temperature = 0;
 // 发送温度数据的计数器
 u16 send_counter = 0;
 
+		 
+// 发送一个字节
+void send_byte(u8 dat) {
+    SBUF = dat;
+    while(!TI);
+    TI = 0;
+}
+
+// 发送温度数据
+void send_temperature() {
+    send_byte(0x55);  // 起始字节
+    send_byte(0x00);
+    send_byte(0x00);
+    send_byte((u8)(temperature >> 8));  // 高字节
+    send_byte((u8)(temperature));  // 低字节
+    send_byte(0xaa);  // 结束字节
+}
+
+// 发送确认帧
+void send_confirmation() {
+    send_byte(0x55); 
+    send_byte(0x06); 
+    send_byte(0x00);
+    send_byte(0x00);
+    send_byte(0x00);
+    send_byte(0xaa);
+}
+
 // 串口中断服务函数
 void serial_isr() interrupt 4 {
     if (RI) {
         RI = 0;
         Re_Buff[ReceiveCounts++] = SBUF;
         
-        if (ReceiveCounts == 5) {
+        if (ReceiveCounts == 6) {
             ReceiveCounts = 0;
             
             // 处理设置温度值的命令
-            if ((Re_Buff[0] == 0x55) && (Re_Buff[1] == 0x01) && (Re_Buff[4] == 0xaa)) {
-                SetValue = (Re_Buff[2] << 8) | Re_Buff[3];
+            if ((Re_Buff[0] == 0x55) && (Re_Buff[1] == 0x01) && (Re_Buff[5] == 0xaa)) {
+                SetValue = (Re_Buff[3] << 8) | Re_Buff[4];
                 integral = 0; // 重置积分项
-			}
+                send_confirmation();
+            }
             // 处理设置PID参数的命令
-            else if ((Re_Buff[0] == 0x55) && (Re_Buff[1] == 0x02) && (Re_Buff[4] == 0xaa)) {
+            else if ((Re_Buff[0] == 0x55) && (Re_Buff[1] == 0x02) && (Re_Buff[5] == 0xaa)) {
                 Kp = Re_Buff[2] / 10.0;
                 Ki = Re_Buff[3] / 100.0;
                 Kd = Re_Buff[4] / 10.0;
@@ -74,20 +103,6 @@ void serial_isr() interrupt 4 {
     }
 }
 
-// 发送一个字节
-void send_byte(u8 dat) {
-    SBUF = dat;
-    while(!TI);
-    TI = 0;
-}
-
-// 发送温度数据
-void send_temperature() {
-    send_byte(0x55);  // 起始字节
-    send_byte((u8)(temperature >> 8));  // 高字节
-    send_byte((u8)(temperature));  // 低字节
-    send_byte(0xaa);  // 结束字节
-}
 
 // 主函数
 void main() {
