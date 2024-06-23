@@ -1,0 +1,217 @@
+C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/23/2024 15:12:21 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE SEPTEMPERATUE
+OBJECT MODULE PLACED IN septemperatue.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE septemperatue.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg51.h>
+   2          #include <absacc.h>
+   3          
+   4          // 定义数据类型
+   5          #define u8  unsigned char
+   6          #define u16 unsigned int
+   7          #define u32 unsigned long  
+   8          
+   9          // 定义端口
+  10          #define DT_DA_PORT XBYTE[0xe400]     // 数码管数据端口
+  11          #define DT_DI_PORT XBYTE[0xe800]
+  12          #define PWM_OUT_PORT XBYTE[0xc400]   // 传感器及PWM输出端口
+  13          #define SPT_LOW_INPORT XBYTE[0xc100]
+  14          #define SPT_HIG_INPORT XBYTE[0xc200]
+  15          
+  16          // 设定值
+  17          int SetValue;
+  18          
+  19          // PID控制参数 (调整这些参数以获得更好的性能)
+  20          float Kp = 0.5f;
+  21          float Ki = 0.01f;
+  22          float Kd = 0.1f;
+  23          
+  24          // 误差变量
+  25          int et;
+  26          int et_1;
+  27          int et_2;
+  28          
+  29          // PID积分和微分项
+  30          float integral = 0.0f;
+  31          float derivative = 0.0f;
+  32          
+  33          // PWM变量
+  34          static float pwm = 0.0f;  
+  35          
+  36          // 显示缓冲区
+  37          u8 DispBuff[8] = {0, 0, 0, 0, 1, 1, 1, 7};
+  38          
+  39          // 串口接收缓冲区
+  40          u8 ReceiveCounts = 0; 
+  41          u8 Re_Buff[6];
+  42          
+  43          // 温度数据
+  44          u16 temperature = 0;
+  45          
+  46          // 发送温度数据的计数器
+  47          u16 send_counter = 0;
+  48          
+  49          // 串口中断服务函数
+  50          void serial_isr() interrupt 4 {
+  51   1          if (RI) {
+  52   2              RI = 0;
+  53   2              Re_Buff[ReceiveCounts++] = SBUF;
+  54   2              
+  55   2              if (ReceiveCounts == 5) {
+C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/23/2024 15:12:21 PAGE 2   
+
+  56   3                  ReceiveCounts = 0;
+  57   3                  
+  58   3                  // 处理设置温度值的命令
+  59   3                  if ((Re_Buff[0] == 0x55) && (Re_Buff[1] == 0x01) && (Re_Buff[4] == 0xaa)) {
+  60   4                      SetValue = (Re_Buff[2] << 8) | Re_Buff[3];
+  61   4                      integral = 0; // 重置积分项
+  62   4                              }
+  63   3                  // 处理设置PID参数的命令
+  64   3                  else if ((Re_Buff[0] == 0x55) && (Re_Buff[1] == 0x02) && (Re_Buff[4] == 0xaa)) {
+  65   4                      Kp = Re_Buff[2] / 10.0;
+  66   4                      Ki = Re_Buff[3] / 100.0;
+  67   4                      Kd = Re_Buff[4] / 10.0;
+  68   4                  }
+  69   3              }
+  70   2          }
+  71   1          
+  72   1          if (TI) {
+  73   2              TI = 0;
+  74   2          }
+  75   1      }
+  76          
+  77          // 发送一个字节
+  78          void send_byte(u8 dat) {
+  79   1          SBUF = dat;
+  80   1          while(!TI);
+  81   1          TI = 0;
+  82   1      }
+  83          
+  84          // 发送温度数据
+  85          void send_temperature() {
+  86   1          send_byte(0x55);  // 起始字节
+  87   1          send_byte((u8)(temperature >> 8));  // 高字节
+  88   1          send_byte((u8)(temperature));  // 低字节
+  89   1          send_byte(0xaa);  // 结束字节
+  90   1      }
+  91          
+  92          // 主函数
+  93          void main() {
+  94   1          // 串口初始化
+  95   1          SCON = 0x50;    
+  96   1          TMOD = 0x20;
+  97   1          TL1 = TH1 = 0xFD;    // 9600 baud @ 11.0592MHz
+  98   1          TR1 = 1;
+  99   1              
+ 100   1          // 中断初始化
+ 101   1          IT0 = 1;
+ 102   1          IT1 = 1;
+ 103   1          EX0 = 1;
+ 104   1          EX1 = 1;
+ 105   1          ES = 1;  // 使能串口中断
+ 106   1          EA = 1;  // 使能全局中断
+ 107   1          
+ 108   1          // 设定值初始化
+ 109   1          SetValue = 5000;  
+ 110   1              
+ 111   1          while (1) {
+ 112   2              // 周期性发送温度数据
+ 113   2              if (++send_counter >= 10000) {  // 减小发送间隔，提高响应速度
+ 114   3                  send_counter = 0;
+ 115   3                  send_temperature();
+ 116   3              }
+ 117   2          }
+C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/23/2024 15:12:21 PAGE 3   
+
+ 118   1      }
+ 119          
+ 120          // 外部中断0服务函数
+ 121          void int0_isr() interrupt 0 {
+ 122   1          u16 x;
+ 123   1          float pid_output;
+ 124   1      
+ 125   1          // 读取传感器数据
+ 126   1          *((u8 *)&x + 1) = SPT_LOW_INPORT;
+ 127   1          *((u8 *)&x + 0) = SPT_HIG_INPORT;
+ 128   1          
+ 129   1          // 更新温度数据
+ 130   1          temperature = x;
+ 131   1          
+ 132   1          // 计算误差
+ 133   1          et_2 = et_1;
+ 134   1          et_1 = et;
+ 135   1          et = SetValue - (int)x;
+ 136   1      
+ 137   1          // 计算积分项 (使用梯形积分法)
+ 138   1          integral += (et + et_1) / 2.0f;
+ 139   1          
+ 140   1          // 应用积分限幅，防止积分饱和
+ 141   1          if (integral > 1000) integral = 1000;
+ 142   1          if (integral < -1000) integral = -1000;
+ 143   1      
+ 144   1          // 计算微分项
+ 145   1          derivative = et - et_1;
+ 146   1      
+ 147   1          // PID控制算法
+ 148   1          pid_output = Kp * et + Ki * integral + Kd * derivative;
+ 149   1      
+ 150   1          // 更新PWM值
+ 151   1          pwm += pid_output;
+ 152   1      
+ 153   1          // PWM限幅
+ 154   1          if (pwm > 255) pwm = 255;
+ 155   1          if (pwm < 0) pwm = 0;
+ 156   1      
+ 157   1          // 输出PWM
+ 158   1          PWM_OUT_PORT = (u8)pwm;
+ 159   1      
+ 160   1          // 更新显示缓冲区
+ 161   1          DispBuff[2] = x / 100000;
+ 162   1          x = x % 100000;
+ 163   1          DispBuff[3] = x / 10000;
+ 164   1          x = x % 10000;
+ 165   1          DispBuff[4] = x / 1000;
+ 166   1          x = x % 1000;
+ 167   1          DispBuff[5] = x / 100;
+ 168   1          x = x % 100;
+ 169   1          DispBuff[6] = x / 10;
+ 170   1          x = x % 10;
+ 171   1          DispBuff[7] = x;
+ 172   1      }
+ 173          
+ 174          // 外部中断1服务函数
+ 175          void int1_isr() interrupt 2 {
+ 176   1          static u8 CurrentBit = 0x01;
+ 177   1      
+ 178   1          // 数码管显示编码
+ 179   1          u8 code SevenSegCode[10] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
+C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/23/2024 15:12:21 PAGE 4   
+
+ 180   1          u8 code SevenSegBT[8] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
+ 181   1              
+ 182   1          DT_DI_PORT = 0;
+ 183   1          DT_DA_PORT = SevenSegCode[DispBuff[CurrentBit]];
+ 184   1          DT_DI_PORT = SevenSegBT[CurrentBit];
+ 185   1              
+ 186   1          CurrentBit++;
+ 187   1          CurrentBit = CurrentBit % 8;
+ 188   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    976    ----
+   CONSTANT SIZE    =     18    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     52       6
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,72 @@
+2024-06-23 11:59:21,237 - [INFO] -  Config path: C:\Users\Fujio\Downloads\comtool\config.json
+2024-06-23 11:59:21,237 - [INFO] -  Log path: C:\Users\Fujio\Downloads\comtool\run.log
+2024-06-23 11:59:21,237 - [INFO] -  loading config from C:\Users\Fujio\Downloads\comtool\config.json
+2024-06-23 11:59:21,237 - [INFO] -  loading config complete
+2024-06-23 11:59:21,484 - [INFO] -  init main window
+2024-06-23 11:59:23,740 - [INFO] -  icon path: C:/Users/Fujio/Downloads/comtool/_internal/assets/logo.png
+2024-06-23 11:59:24,022 - [INFO] -  init main window complete
+2024-06-23 11:59:24,263 - [INFO] -  load plugin items complete
+2024-06-23 11:59:24,263 - [INFO] -  data path:C:/Users/Fujio/Downloads/comtool/_internal
+2024-06-23 11:59:24,832 - [INFO] -  Already latest version!
+2024-06-23 11:59:43,729 - [INFO] -  Close window
+2024-06-23 11:59:45,129 - [INFO] -  Config path: C:\Users\Fujio\Downloads\comtool\config.json
+2024-06-23 11:59:45,129 - [INFO] -  Log path: C:\Users\Fujio\Downloads\comtool\run.log
+2024-06-23 11:59:45,129 - [INFO] -  loading config from C:\Users\Fujio\Downloads\comtool\config.json
+2024-06-23 11:59:45,129 - [INFO] -  loading config complete
+2024-06-23 11:59:45,299 - [INFO] -  init main window
+2024-06-23 11:59:45,394 - [INFO] -  icon path: C:/Users/Fujio/Downloads/comtool/_internal/assets/logo.png
+2024-06-23 11:59:45,628 - [INFO] -  init main window complete
+2024-06-23 11:59:45,629 - [INFO] -  load plugin item Send Receive
+2024-06-23 11:59:45,851 - [INFO] -  load plugin item protocol
+2024-06-23 11:59:45,859 - [INFO] -  load plugin item terminal
+2024-06-23 11:59:45,866 - [INFO] -  load plugin item Graph
+2024-06-23 11:59:45,873 - [INFO] -  load plugin items complete
+2024-06-23 11:59:45,873 - [INFO] -  data path:C:/Users/Fujio/Downloads/comtool/_internal
+2024-06-23 11:59:46,272 - [INFO] -  Already latest version!
+2024-06-23 11:59:50,088 - [INFO] -  Close window
+2024-06-23 11:59:50,098 - [INFO] -  Restarting program, comand: C:\Users\Fujio\Downloads\comtool\comtool.exe C:\Users\Fujio\Downloads\comtool\comtool.exe C:\Users\Fujio\Downloads\comtool\comtool.exe
+2024-06-23 11:59:50,297 - [INFO] -  Config path: C:\Users\Fujio\Downloads\comtool\config.json
+2024-06-23 11:59:50,297 - [INFO] -  Log path: C:\Users\Fujio\Downloads\comtool\run.log
+2024-06-23 11:59:50,297 - [INFO] -  loading config from C:\Users\Fujio\Downloads\comtool\config.json
+2024-06-23 11:59:50,297 - [INFO] -  loading config complete
+2024-06-23 11:59:50,465 - [INFO] -  init main window
+2024-06-23 11:59:50,552 - [INFO] -  icon path: C:/Users/Fujio/Downloads/comtool/_internal/assets/logo.png
+2024-06-23 11:59:50,796 - [INFO] -  init main window complete
+2024-06-23 11:59:50,797 - [INFO] -  load plugin item Send Receive
+2024-06-23 11:59:51,020 - [INFO] -  load plugin item protocol
+2024-06-23 11:59:51,028 - [INFO] -  load plugin item terminal
+2024-06-23 11:59:51,037 - [INFO] -  load plugin item Graph
+2024-06-23 11:59:51,045 - [INFO] -  load plugin items complete
+2024-06-23 11:59:51,045 - [INFO] -  data path:C:/Users/Fujio/Downloads/comtool/_internal
+2024-06-23 11:59:51,456 - [INFO] -  Already latest version!
+2024-06-23 11:59:53,856 - [INFO] -  Close window
+2024-06-23 12:00:07,127 - [INFO] -  Config path: F:\课设\综合实践\comtool\config.json
+2024-06-23 12:00:07,127 - [INFO] -  Log path: F:\课设\综合实践\comtool\run.log
+2024-06-23 12:00:07,127 - [INFO] -  loading config from F:\课设\综合实践\comtool\config.json
+2024-06-23 12:00:07,127 - [INFO] -  loading config complete
+2024-06-23 12:00:07,369 - [INFO] -  init main window
+2024-06-23 12:00:07,462 - [INFO] -  icon path: F:/课设/综合实践/comtool/_internal/assets/logo.png
+2024-06-23 12:00:07,692 - [INFO] -  init main window complete
+2024-06-23 12:00:07,692 - [INFO] -  load plugin item 收发
+2024-06-23 12:00:07,919 - [INFO] -  load plugin item 协议
+2024-06-23 12:00:07,930 - [INFO] -  load plugin item 终端
+2024-06-23 12:00:07,938 - [INFO] -  load plugin item 图表
+2024-06-23 12:00:07,945 - [INFO] -  load plugin items complete
+2024-06-23 12:00:07,946 - [INFO] -  data path:F:/课设/综合实践/comtool/_internal
+2024-06-23 12:00:08,338 - [INFO] -  Already latest version!
+2024-06-23 14:49:42,184 - [INFO] -  Close window
+2024-06-23 15:13:13,568 - [INFO] -  Config path: F:\课设\综合实践\comtool\config.json
+2024-06-23 15:13:13,568 - [INFO] -  Log path: F:\课设\综合实践\comtool\run.log
+2024-06-23 15:13:13,568 - [INFO] -  loading config from F:\课设\综合实践\comtool\config.json
+2024-06-23 15:13:13,568 - [INFO] -  loading config complete
+2024-06-23 15:13:13,829 - [INFO] -  init main window
+2024-06-23 15:13:13,952 - [INFO] -  icon path: F:/课设/综合实践/comtool/_internal/assets/logo.png
+2024-06-23 15:13:14,252 - [INFO] -  init main window complete
+2024-06-23 15:13:14,253 - [INFO] -  load plugin item 收发
+2024-06-23 15:13:14,511 - [INFO] -  load plugin item 协议
+2024-06-23 15:13:14,528 - [INFO] -  load plugin item 终端
+2024-06-23 15:13:14,537 - [INFO] -  load plugin item 图表
+2024-06-23 15:13:14,544 - [INFO] -  load plugin items complete
+2024-06-23 15:13:14,545 - [INFO] -  data path:F:/课设/综合实践/comtool/_internal
+2024-06-23 15:13:15,344 - [INFO] -  Already latest version!
+2024-06-23 15:16:27,994 - [INFO] -  Close window

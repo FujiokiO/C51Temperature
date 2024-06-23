@@ -1,0 +1,984 @@
+# Chinese (Simplified, China) translations for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: https://github.com/Neutree/COMTool/issues\n"
+"POT-Creation-Date: 2023-11-20 21:57+0800\n"
+"PO-Revision-Date: 2021-12-04 15:20+0800\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_Hans_CN\n"
+"Language-Team: zh_Hans_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: helpAbout.py:40
+msgid "Config path"
+msgstr "配置路径"
+
+#: helpAbout.py:42
+msgid "Old config backup in"
+msgstr "旧版配置备份在"
+
+#: helpAbout.py:44
+msgid "COMTool is a Open source project create by"
+msgstr "COMTool 是一个开源程序， 创建者："
+
+#: helpAbout.py:46
+msgid "License"
+msgstr "开源协议"
+
+#: helpAbout.py:47
+msgid "Welcome to improve it together and add plugins"
+msgstr "欢迎一起改进以及编写插件"
+
+#: helpAbout.py:48
+msgid "See more details on"
+msgstr "更详细看这里"
+
+#: helpAbout.py:49
+msgid "and get latest version at"
+msgstr "在此获取最新版本："
+
+#: helpAbout.py:50
+msgid "page"
+msgstr "页面"
+
+#: helpAbout.py:51
+msgid "Have problem? see"
+msgstr "有疑问？看"
+
+#: helpAbout.py:52
+msgid "QQ group for plugin development discussion"
+msgstr "QQ群，插件开发讨论"
+
+#: helpAbout.py:53
+msgid "You can buy me half a cup of coffee if this software helpes you"
+msgstr "如果有帮助到你，可以赏半杯咖啡"
+
+#: main2.py:90
+msgid "Load plugin from file"
+msgstr "从文件加载插件"
+
+#: main2.py:213
+msgid ", Double click to detach as a window"
+msgstr ", 双击以分离为窗口"
+
+#: main2.py:222 plugins/base.py:79
+msgid "Connected"
+msgstr "已连接"
+
+#: main2.py:222 plugins/base.py:85
+msgid "Connection lose"
+msgstr "连接丢失"
+
+#: main2.py:222
+msgid "Disconnected"
+msgstr "已断开"
+
+#: conn/conn_serial.py:337 conn/conn_ssh.py:296 conn/conn_tcp_udp.py:410
+#: main2.py:248 main2.py:298 main2.py:442 main2.py:447 main2.py:774
+#: pluginItems.py:176 pluginItems.py:179 pluginItems.py:287 pluginItems.py:299
+#: plugins/base.py:176 plugins/base.py:181 plugins/base.py:197
+#: plugins/base.py:206 plugins/dbg.py:426 plugins/dbg.py:435 plugins/dbg.py:588
+#: plugins/dbg.py:605 plugins/dbg.py:662 plugins/dbg.py:670
+#: plugins/graph.py:256 plugins/graph_widget_metasenselite.py:591
+#: plugins/graph_widgets.py:166 plugins/myplugin.py:62
+#: plugins/myplugin2/comtool_plugin_myplugin2/myplugin2.py:70
+#: plugins/protocol.py:466 plugins/protocol.py:480 plugins/protocol.py:489
+#: plugins/protocol.py:552
+msgid "Error"
+msgstr "错误"
+
+#: main2.py:248
+msgid "Load plugin failed"
+msgstr "加载插件失败"
+
+#: main2.py:269
+msgid "Load plugin fail"
+msgstr "加载插件失败"
+
+#: conn/conn_ssh.py:239 main2.py:292 pluginItems.py:156 pluginItems.py:169
+#: plugins/dbg.py:448 plugins/dbg.py:462
+msgid "Select file"
+msgstr "选择文件"
+
+#: main2.py:294
+msgid "python script (*.py)"
+msgstr "python 脚本 (*.py)"
+
+#: main2.py:389
+msgid "New Window"
+msgstr "新窗口"
+
+#: main2.py:506 main2.py:515
+msgid "Restart now?"
+msgstr "现在就重启？"
+
+#: main2.py:507
+msgid "language changed to: "
+msgstr "语言更改为: "
+
+#: main2.py:507
+msgid "Restart software to take effect now?"
+msgstr "现在就重启软件以生效？"
+
+#: main2.py:556 main2.py:557
+msgid "Closing ..."
+msgstr "关闭中 ..."
+
+#: main2.py:659
+msgid "About"
+msgstr "关于"
+
+#: main2.py:681
+msgid "New versioin detected, please click learn more to download"
+msgstr "检测到了新版本， 请点击 了解更多 以下载"
+
+#: main2.py:682
+msgid "Learn More"
+msgstr "了解更多"
+
+#: main2.py:683
+msgid "Skip this version"
+msgstr "跳过此版本"
+
+#: main2.py:684
+msgid "Remind me next time"
+msgstr "下次提醒我"
+
+#: main2.py:685
+msgid "Need update"
+msgstr "需要更新"
+
+#: pluginItems.py:59
+msgid "version not found in config of plugin:"
+msgstr "插件配置无版本号:"
+
+#: conn/conn_tcp_udp.py:548 pluginItems.py:105
+msgid "Connection"
+msgstr "连接"
+
+#: pluginItems.py:130
+msgid "Load config"
+msgstr "加载配置"
+
+#: pluginItems.py:131
+msgid "Share config"
+msgstr "分享配置"
+
+#: pluginItems.py:158 pluginItems.py:171
+msgid "json file (*.json);;config file (*.conf);;All Files (*)"
+msgstr "json 文件 (*.json);;配置文件 (*.conf);;所有文件 (*)"
+
+#: pluginItems.py:176
+msgid ""
+"Not support load global config file, you can copy config file mannually "
+"to "
+msgstr "不支持加载全局配置，你可以手动拷贝文件到 "
+
+#: pluginItems.py:179
+msgid "Config is not for this plugin, config is for plugin:"
+msgstr "配置不是这个插件的，配置是这个插件的: "
+
+#: pluginItems.py:182 plugins/dbg.py:384 plugins/dbg.py:591
+#: plugins/protocol.py:574 plugins/protocol.py:596
+msgid "Warning"
+msgstr "警告"
+
+#: pluginItems.py:183
+msgid "Config version not same, plugin config version:"
+msgstr "配置版本不同，插件配置版本:"
+
+#: pluginItems.py:184
+msgid "now"
+msgstr "当前"
+
+#: pluginItems.py:185
+msgid ""
+"this maybe lead to some problem, if happened, please remove it manually "
+"from config file"
+msgstr "这可能导致一些问题，如果发生了，请手动从配置文件中删除"
+
+#: pluginItems.py:202
+msgid "Restart to load config?"
+msgstr "重启以加载配置"
+
+#: pluginItems.py:238
+msgid "Change connection, auto close old connection"
+msgstr "更改连接，自动关闭旧连接"
+
+#: pluginItems.py:287
+msgid "Open file failed!"
+msgstr "打开失败"
+
+#: widgets.py:561 widgets.py:582
+msgid "Received"
+msgstr "已接收"
+
+#: widgets.py:561 widgets.py:562 widgets.py:582 widgets.py:589
+msgid "bytes"
+msgstr "字节"
+
+#: widgets.py:562 widgets.py:589
+msgid "Sent"
+msgstr "已发送"
+
+#: widgets.py:614
+msgid "Help"
+msgstr "帮助"
+
+#: widgets.py:661
+msgid "Input remark"
+msgstr "输入标记"
+
+#: plugins/dbg.py:197 widgets.py:671 widgets.py:742
+msgid "Record"
+msgstr "记录"
+
+#: widgets.py:676
+msgid "Input value"
+msgstr "输入值"
+
+#: widgets.py:678 widgets.py:703
+msgid "Select icon"
+msgstr "选择图标"
+
+#: plugins/graph_widgets.py:384 widgets.py:680
+msgid "Shortcut"
+msgstr "快捷键"
+
+#: widgets.py:682
+msgid "Press key to record, or click Cancel"
+msgstr "按键以记录，或点击取消按钮"
+
+#: plugins/dbg.py:419 widgets.py:685 widgets.py:703
+msgid "OK"
+msgstr "完成"
+
+#: widgets.py:686 widgets.py:729
+msgid "Cancel"
+msgstr "取消"
+
+#: conn/conn_serial.py:47
+msgid "Serial"
+msgstr "串口"
+
+#: conn/conn_serial.py:81
+msgid "Custom, input baudrate"
+msgstr "自定义，输入波特率"
+
+#: conn/conn_serial.py:113 conn/conn_ssh.py:151 conn/conn_tcp_udp.py:112
+msgid "Port"
+msgstr "端口"
+
+#: conn/conn_serial.py:114
+msgid "Baudrate"
+msgstr "波特率"
+
+#: conn/conn_serial.py:115
+msgid "DataBytes"
+msgstr "数据字节"
+
+#: conn/conn_serial.py:116
+msgid "Parity"
+msgstr "奇偶校验"
+
+#: conn/conn_serial.py:117
+msgid "Stopbits"
+msgstr "停止位"
+
+#: conn/conn_serial.py:118
+msgid "Flow control"
+msgstr "流控"
+
+#: conn/conn_serial.py:152 conn/conn_serial.py:153
+msgid "Check to enable(usually output low level)"
+msgstr "选中以使能（通常会输出低电平）"
+
+#: conn/conn_serial.py:154 conn/conn_serial.py:301 conn/conn_serial.py:393
+#: conn/conn_ssh.py:165 conn/conn_ssh.py:251 conn/conn_ssh.py:339
+#: conn/conn_tcp_udp.py:137 conn/conn_tcp_udp.py:331 conn/conn_tcp_udp.py:442
+msgid "OPEN"
+msgstr "打开"
+
+#: conn/conn_serial.py:207 conn/conn_serial.py:336
+msgid "Open Failed"
+msgstr "打开失败"
+
+#: conn/conn_serial.py:396 conn/conn_serial.py:399 conn/conn_ssh.py:342
+#: conn/conn_ssh.py:345 conn/conn_tcp_udp.py:445 conn/conn_tcp_udp.py:448
+msgid "CLOSE"
+msgstr "关闭"
+
+#: conn/conn_serial.py:434 conn/conn_ssh.py:368 conn/conn_tcp_udp.py:505
+msgid "Reconnected"
+msgstr "已重连"
+
+#: conn/conn_serial.py:465 conn/conn_ssh.py:413 conn/conn_tcp_udp.py:567
+msgid "Connection lose!"
+msgstr "连接丢失！"
+
+#: conn/conn_ssh.py:150
+msgid "Host"
+msgstr "主机"
+
+#: conn/conn_ssh.py:152
+msgid "User"
+msgstr "用户"
+
+#: conn/conn_ssh.py:153
+msgid "Password"
+msgstr "密码"
+
+#: conn/conn_ssh.py:154
+msgid "SSH key"
+msgstr "SSH 公钥"
+
+#: conn/conn_ssh.py:155
+msgid "Saved"
+msgstr "已保存"
+
+#: conn/conn_ssh.py:163
+msgid "File"
+msgstr "文件"
+
+#: conn/conn_ssh.py:222
+msgid "Input error"
+msgstr "输入错误"
+
+#: conn/conn_ssh.py:222
+msgid "Input"
+msgstr "输入"
+
+#: conn/conn_ssh.py:222
+msgid "error"
+msgstr "错误"
+
+#: conn/conn_ssh.py:241 plugins/dbg.py:450
+msgid "All Files (*)"
+msgstr "所有文件 (*)"
+
+#: conn/conn_ssh.py:295 conn/conn_tcp_udp.py:409
+msgid "Connect Failed"
+msgstr "连接失败"
+
+#: conn/conn_ssh.py:306
+msgid "Config error"
+msgstr "配置错误"
+
+#: conn/conn_ssh.py:333
+msgid "SSH pub key file path error"
+msgstr "SSH 公钥文件路径错误"
+
+#: conn/conn_ssh.py:395 conn/conn_tcp_udp.py:526
+msgid "Closed by peer"
+msgstr "对方主动关闭连接"
+
+#: conn/conn_ssh.py:400 conn/conn_tcp_udp.py:552
+msgid "Connection closed!"
+msgstr "连接已关闭！"
+
+#: conn/conn_tcp_udp.py:107
+msgid "Protocol"
+msgstr "协议"
+
+#: conn/conn_tcp_udp.py:108
+msgid "Mode"
+msgstr "模式"
+
+#: conn/conn_tcp_udp.py:109
+msgid "Target"
+msgstr "目标"
+
+#: conn/conn_tcp_udp.py:132 conn/conn_tcp_udp.py:251
+msgid "All clients"
+msgstr "所有客户端"
+
+#: conn/conn_tcp_udp.py:133
+msgid "Disconnect"
+msgstr "断开连接"
+
+#: conn/conn_tcp_udp.py:134
+msgid "Auto reconnect"
+msgstr "自动重连"
+
+#: conn/conn_tcp_udp.py:372 conn/conn_tcp_udp.py:497 conn/conn_tcp_udp.py:594
+msgid "Target error"
+msgstr "目标错误"
+
+#: conn/conn_tcp_udp.py:473
+msgid "Client connected:"
+msgstr "客户端已连接"
+
+#: conn/conn_tcp_udp.py:548
+msgid "closed!"
+msgstr "已关闭!"
+
+#: plugins/base.py:81
+msgid "Closed"
+msgstr "已关闭"
+
+#: plugins/base.py:83
+msgid "Connecting"
+msgstr "连接中"
+
+#: plugins/base.py:197
+msgid "Format error, should be like 00 01 02 03"
+msgstr "格式错误，格式应该应该如 00 01 02 03"
+
+#: plugins/base.py:206
+msgid "Escape is on, but escape error:"
+msgstr "转移符支持已打开，但是转义时错误"
+
+#: plugins/dbg.py:51
+msgid "Send Receive"
+msgstr "收发"
+
+#: plugins/dbg.py:68
+msgid "Shortcut:"
+msgstr "快捷键："
+
+#: plugins/dbg.py:69
+msgid "Full screen"
+msgstr "全屏"
+
+#: plugins/dbg.py:70
+msgid "Send data"
+msgstr "发送数据"
+
+#: plugins/dbg.py:71
+msgid "Clear Send Area"
+msgstr "清除发送区"
+
+#: plugins/dbg.py:72
+msgid "Clear Receive Area"
+msgstr "清除接收区"
+
+#: plugins/dbg.py:149
+msgid "Receive Settings"
+msgstr "接收设置"
+
+#: plugins/dbg.py:150 plugins/dbg.py:182 plugins/protocol.py:261
+msgid "ASCII"
+msgstr "ASCII"
+
+#: plugins/dbg.py:151
+msgid ""
+"Show recived data as visible format, select decode method at top right "
+"corner"
+msgstr "使用可见字符显示收到的数据，在右上角选择解码的方法"
+
+#: plugins/dbg.py:152 plugins/dbg.py:183 plugins/protocol.py:262
+msgid "HEX"
+msgstr "HEX"
+
+#: plugins/dbg.py:153
+msgid "Show recived data as hex format"
+msgstr "使用十六进制表示方法显示收到的数据"
+
+#: plugins/dbg.py:155
+msgid ""
+"Auto\n"
+"Linefeed\n"
+"ms"
+msgstr "自动换行"
+
+#: plugins/dbg.py:156 plugins/dbg.py:159
+msgid "Auto linefeed after interval, unit: ms"
+msgstr "超过这个时间自动换行，单位：ms"
+
+#: plugins/dbg.py:162
+msgid "Timestamp"
+msgstr "时间戳"
+
+#: plugins/dbg.py:163
+msgid ""
+"Add timestamp before received data, will automatically enable auto line "
+"feed"
+msgstr "在收到的数据前添加时间戳， 会自动使能自动换行"
+
+#: plugins/dbg.py:164
+msgid "Color"
+msgstr "颜色"
+
+#: plugins/dbg.py:165
+msgid "Enable unix terminal color support, e.g. \\33[31;43mhello\\33[0m"
+msgstr "使能 unix 终端颜色支持，比如：\\33[31;43mhello\\33[0m"
+
+#: plugins/dbg.py:166
+msgid "Display wrap"
+msgstr "显示换行"
+
+#: plugins/dbg.py:167
+msgid ""
+"When content in a line is too long, always auto wrap to show, and no "
+"scroll bar"
+msgstr "当一行的内容太长时，总是自动换行显示，不会产生横向滚动条"
+
+#: plugins/dbg.py:181
+msgid "Send Settings"
+msgstr "发送设置"
+
+#: plugins/dbg.py:184 plugins/protocol.py:263
+msgid ""
+"Get send data as visible format, select encoding method at top right "
+"corner"
+msgstr "以可见字符的方式获取将要发送的数据，在右上角选择编码的方法"
+
+#: plugins/dbg.py:185 plugins/protocol.py:264
+msgid "Get send data as hex format, e.g. hex '31 32 33' equal to ascii '123'"
+msgstr "以十六进制的格式获取将要发送的数据，比如 十六进制的'31 32 33' 和 ascii编码的 '123' 等效"
+
+#: plugins/dbg.py:187
+msgid ""
+"Timed Send\n"
+"ms"
+msgstr "定时发送"
+
+#: plugins/dbg.py:188 plugins/dbg.py:191
+msgid "Timed send, unit: ms"
+msgstr "定时发送，单位：ms"
+
+#: plugins/dbg.py:194 plugins/protocol.py:266
+msgid "<CRLF>"
+msgstr "<CRLF>"
+
+#: plugins/dbg.py:195 plugins/protocol.py:267
+msgid "Select to send \\r\\n instead of \\n"
+msgstr "选中发送 \\r\\n 而不是 \\n"
+
+#: plugins/dbg.py:198
+msgid "Record send data"
+msgstr "记录发送的数据"
+
+#: plugins/dbg.py:199 plugins/protocol.py:269
+msgid "Escape"
+msgstr "转义符"
+
+#: plugins/dbg.py:200 plugins/protocol.py:270
+msgid "Enable escape characters support like \\t \\r \\n \\x01 \\001"
+msgstr "使能转义字符支持，比如 \\t \\r \\n \\x01 \\001"
+
+#: plugins/dbg.py:201
+msgid "Newline"
+msgstr "新行"
+
+#: plugins/dbg.py:202
+msgid "Auto add new line when send"
+msgstr "发送时自动添加回车符"
+
+#: plugins/dbg.py:230
+msgid "Auto line feed value error, must be integer"
+msgstr "自动换行值错误，必须是整数"
+
+#: plugins/dbg.py:231
+msgid "Timed send value error, must be integer"
+msgstr "定时发送值错误，必须是整数"
+
+#: plugins/dbg.py:242
+msgid "Open File"
+msgstr "打开文件"
+
+#: plugins/dbg.py:243
+msgid "Send File"
+msgstr "发送文件"
+
+#: plugins/dbg.py:244
+msgid "Clear History"
+msgstr "清除历史"
+
+#: plugins/dbg.py:247
+msgid "Sendding File"
+msgstr "发送文件中"
+
+#: plugins/dbg.py:253
+msgid "Save log"
+msgstr "保存日志"
+
+#: plugins/dbg.py:256
+msgid "Cutom send"
+msgstr "自定义发送"
+
+#: plugins/dbg.py:288
+msgid "Log path"
+msgstr "日志路径"
+
+#: plugins/dbg.py:289
+msgid "Auto new file"
+msgstr "自动新建文件"
+
+#: plugins/dbg.py:290
+msgid "When start a new connection, will automatically create a new log file"
+msgstr "每次连接成功时，会自动新建一个日志文件"
+
+#: plugins/dbg.py:384
+msgid "linefeed always on if timestamp or record send is on"
+msgstr "当时间戳和记录发送时，自动换行需要打开"
+
+#: plugins/dbg.py:419
+msgid "History cleared!"
+msgstr "历史已清除"
+
+#: plugins/dbg.py:426 plugins/graph.py:256 plugins/protocol.py:489
+msgid "Send data failed!"
+msgstr "发送数据失败！"
+
+#: plugins/dbg.py:431
+msgid "Send file"
+msgstr "发送文件"
+
+#: plugins/dbg.py:435
+msgid "Send file failed!"
+msgstr "发送文件失败！"
+
+#: plugins/dbg.py:464
+msgid "Log file (*.log);;txt file (*.txt);;All Files (*)"
+msgstr "日志文件 (*.log);;文本文件 (*.txt);;所有文件 (*)"
+
+#: plugins/dbg.py:588
+msgid ""
+"File path error\n"
+"path"
+msgstr ""
+"文件路径错误\n"
+"路径"
+
+#: plugins/dbg.py:591
+msgid "Connect first please"
+msgstr "请先连接"
+
+#: plugins/dbg.py:594
+msgid "Sending file"
+msgstr "发送文件中"
+
+#: plugins/dbg.py:605
+msgid "Time format error"
+msgstr "时间格式错误"
+
+#: plugins/dbg.py:662
+msgid "Send Error"
+msgstr "发送出错"
+
+#: plugins/dbg.py:670
+msgid "get data error"
+msgstr "获取数据错误"
+
+#: plugins/graph.py:48
+msgid "Graph"
+msgstr "图表"
+
+#: plugins/graph.py:54
+msgid "Double click graph item to add a graph widget"
+msgstr "双击图表项以添加一个图表控件"
+
+#: plugins/graph.py:54
+msgid "line chart plot protocol:"
+msgstr "折线图表协议:"
+
+#: plugins/graph.py:64
+msgid "Full demo see:"
+msgstr "完整例程见："
+
+#: plugins/graph.py:66
+msgid "Install comtool by <code>pip install comtool</code> first"
+msgstr "通过 <code>pip install comtool</code> 来安装 comtool"
+
+#: plugins/graph.py:69
+msgid "For ASCII protocol(\"binary protocol\" not checked)"
+msgstr "对于 字符（ASCII）协议（\"二进制协议\"选项未选中）"
+
+#: plugins/graph.py:72
+msgid "\"$\" means start of frame, end with \"\\n\" \",\" means separator"
+msgstr "\"$\" 代表帧开始，已\"\\n\"结尾，\",\" 代表分隔符"
+
+#: plugins/graph.py:73
+msgid ""
+"checksum is optional, checksum is sum of all bytes in frame except "
+"\",checksum\"."
+msgstr "checksum(和校验)是可选项，和校验是除了\",checksum\"外的所有字节的和。"
+
+#: plugins/graph.py:74
+msgid "e.g."
+msgstr "比如："
+
+#: plugins/graph.py:99
+msgid "For binary protocol(\"binary protocol\" checked)"
+msgstr "对于二进制协议（\"二进制协议\"选项已选中）"
+
+#: plugins/graph.py:196
+msgid "Double click to add a graph widget"
+msgstr "双击以添加一个图表控件"
+
+#: plugins/graph.py:226
+msgid "Clear count"
+msgstr "清除计数"
+
+#: plugins/graph_widget_metasenselite.py:297 plugins/graph_widgets.py:50
+msgid "Remove"
+msgstr "移除"
+
+#: plugins/graph_widget_metasenselite.py:299
+msgid "Capture"
+msgstr "捕获"
+
+#: plugins/graph_widget_metasenselite.py:304 plugins/graph_widgets.py:57
+msgid "Header:"
+msgstr "协议头:"
+
+#: plugins/graph_widget_metasenselite.py:306
+#: plugins/graph_widget_metasenselite.py:578
+#: plugins/graph_widget_metasenselite.py:580
+#: plugins/graph_widget_metasenselite.py:589 plugins/graph_widgets.py:59
+#: plugins/graph_widgets.py:153 plugins/graph_widgets.py:155
+#: plugins/graph_widgets.py:164
+msgid "Set"
+msgstr "设置"
+
+#: plugins/graph_widget_metasenselite.py:308
+msgid "RawCMD:"
+msgstr "裸命令:"
+
+#: plugins/graph_widget_metasenselite.py:309
+msgid "AT+ISP=0\\r"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:310 plugins/myplugin.py:44
+#: plugins/myplugin2/comtool_plugin_myplugin2/myplugin2.py:52
+msgid "Send"
+msgstr "发送"
+
+#: plugins/graph_widget_metasenselite.py:315
+msgid "ISP"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:316
+msgid "LCD"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:317
+msgid "USB"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:318
+msgid "UART"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:319
+msgid "ANTIMMI"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:341
+msgid "Unit:auto "
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:348
+msgid " Fps:15   "
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:354
+msgid "  Ev:AE   "
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:357
+msgid ""
+"Protocol: 2Byte header + 2Byte length + 1Byte command + 1Byte output_mode"
+" + 1Byte Sensor Temp + 1Byte Driver Temp\n"
+" 4Bytes exposure time + 1Byte error code + 1Byte reserved1 + 1Byte res "
+"rows + 1Byte res cols\n"
+" 2Byte Frame ID + 1 Byte ISP version + 1 Byte reserved3\n"
+" frame data\n"
+" 1Byte checksum + 1Byte tail\n"
+" length count from Byte4 to the Byte before Checksum\n"
+"Protocol example code see help"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:394
+msgid "Binn:"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:396
+msgid "Baud:"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:399
+msgid "D:"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:401
+msgid "X:"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:403
+msgid "Y:"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:591 plugins/graph_widgets.py:166
+msgid "Format error"
+msgstr "格式错误"
+
+#: plugins/graph_widgets.py:51
+msgid "Clear"
+msgstr "清除"
+
+#: plugins/graph_widgets.py:52
+msgid "Range:"
+msgstr "范围："
+
+#: plugins/graph_widgets.py:54
+msgid "Enable"
+msgstr "使能"
+
+#: plugins/graph_widgets.py:56
+msgid "Binary Protocol"
+msgstr "二进制协议"
+
+#: plugins/graph_widgets.py:60
+msgid ""
+"Protocol: header + 1Byte name length + name + 8Bytes x(double) + 8Bytes "
+"y(double) + 1Byte sum\n"
+"Protocol example code see help"
+msgstr ""
+"协议帧：头 + 1Byte 曲线名称长度 + 曲线名称 + 8Bytes x(双精度) + 8Bytes y(双精度) + 1Byte 和校验\n"
+"如果使用 python，可以通过以下代码打包帧:\n"
+"协议示例代码参见帮助"
+
+#: plugins/graph_widgets.py:64
+msgid ""
+"Check this if you want to use binary protocol, or use ASCII protocol(e.g."
+" \"$data1,10.0,200.0\\n\"), more see help button on the top of window"
+msgstr "使能二进制协议，否则使用 ASCII 协议(例如 \"$data1,10.0,200.0\\n\")， 详情点击窗口帮助按钮查看帮助"
+
+#: plugins/myplugin.py:22
+msgid "my plugin"
+msgstr "我的插件"
+
+#: plugins/myplugin.py:62
+#: plugins/myplugin2/comtool_plugin_myplugin2/myplugin2.py:70
+msgid "Input data first please"
+msgstr "请先输入数据"
+
+#: plugins/protocol.py:58
+msgid "protocol"
+msgstr "协议"
+
+#: plugins/protocol.py:153
+msgid "Key mode"
+msgstr "按键模式"
+
+#: plugins/protocol.py:239
+msgid "En-decoding settings"
+msgstr "发送设置"
+
+#: plugins/protocol.py:243
+msgid "Custom, input name"
+msgstr "自定义，输入名字"
+
+#: plugins/protocol.py:244
+msgid "Load defaults"
+msgstr "加载默认项"
+
+#: plugins/protocol.py:247 plugins/protocol.py:540 plugins/protocol.py:564
+#: plugins/protocol.py:567 plugins/protocol.py:587
+msgid "Save"
+msgstr "保存"
+
+#: plugins/protocol.py:249
+msgid "Delete"
+msgstr "删除"
+
+#: plugins/protocol.py:253
+msgid "Defaults"
+msgstr "默认项"
+
+#: plugins/protocol.py:255
+msgid "Code"
+msgstr "代码"
+
+#: plugins/protocol.py:259
+msgid "Send settings"
+msgstr "发送设置"
+
+#: plugins/protocol.py:466
+msgid "Run decode error"
+msgstr "执行解码错误"
+
+#: plugins/protocol.py:480
+msgid "Run encode error"
+msgstr "执行编码错误"
+
+#: plugins/protocol.py:548
+msgid "decode and encode method should be in code"
+msgstr "编解码方法未提供"
+
+#: plugins/protocol.py:551
+msgid "Method error"
+msgstr "方法错误"
+
+#: plugins/protocol.py:574
+msgid "Please input code profile name first"
+msgstr "请先输入代码存档名"
+
+#: plugins/protocol.py:596
+msgid "Please select a code profile name first to delete"
+msgstr "请先选择要删除的存档名"
+
+#: plugins/terminal.py:674
+msgid "terminal"
+msgstr "终端"
+
+#: plugins/myplugin2/comtool_plugin_myplugin2/myplugin2.py:30
+msgid "my plugin2"
+msgstr "我的插件2"
+
+#~ msgid "Donate"
+#~ msgstr "捐献"
+
+#~ msgid "Receive"
+#~ msgstr "接收"
+
+#~ msgid "Functional Send"
+#~ msgstr "其它发送功能"
+
+#~ msgid "Ready"
+#~ msgstr "就绪"
+
+#~ msgid "HELP"
+#~ msgstr "帮助"
+
+#~ msgid "ABOUT"
+#~ msgstr "关于"
+
+#~ msgid "Settings"
+#~ msgstr "设置"
+
+#~ msgid "Need Update"
+#~ msgstr "需要更新"
+
+#~ msgid "update now?"
+#~ msgstr "现在就更新？"
+
+#~ msgid "uninstall app"
+#~ msgstr "卸载应用"
+
+#~ msgid "About"
+#~ msgstr "关于"
+
+#~ msgid "Buy me half a cup of coffee"
+#~ msgstr "感谢大爷赏赐半杯咖啡吧"
+
+#~ msgid "config file format error"
+#~ msgstr "配置文件格式错误"
+
+#~ msgid "Plugin help:"
+#~ msgstr "插件帮助："
+
+#~ msgid "This plugin no help info"
+#~ msgstr "此插件无帮助信息"
+

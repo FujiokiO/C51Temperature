@@ -1,0 +1,933 @@
+# Translations template for PROJECT.
+# Copyright (C) 2023 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2023-11-20 21:57+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: helpAbout.py:40
+msgid "Config path"
+msgstr ""
+
+#: helpAbout.py:42
+msgid "Old config backup in"
+msgstr ""
+
+#: helpAbout.py:44
+msgid "COMTool is a Open source project create by"
+msgstr ""
+
+#: helpAbout.py:46
+msgid "License"
+msgstr ""
+
+#: helpAbout.py:47
+msgid "Welcome to improve it together and add plugins"
+msgstr ""
+
+#: helpAbout.py:48
+msgid "See more details on"
+msgstr ""
+
+#: helpAbout.py:49
+msgid "and get latest version at"
+msgstr ""
+
+#: helpAbout.py:50
+msgid "page"
+msgstr ""
+
+#: helpAbout.py:51
+msgid "Have problem? see"
+msgstr ""
+
+#: helpAbout.py:52
+msgid "QQ group for plugin development discussion"
+msgstr ""
+
+#: helpAbout.py:53
+msgid "You can buy me half a cup of coffee if this software helpes you"
+msgstr ""
+
+#: main2.py:90
+msgid "Load plugin from file"
+msgstr ""
+
+#: main2.py:213
+msgid ", Double click to detach as a window"
+msgstr ""
+
+#: main2.py:222 plugins/base.py:79
+msgid "Connected"
+msgstr ""
+
+#: main2.py:222 plugins/base.py:85
+msgid "Connection lose"
+msgstr ""
+
+#: main2.py:222
+msgid "Disconnected"
+msgstr ""
+
+#: conn/conn_serial.py:337 conn/conn_ssh.py:296 conn/conn_tcp_udp.py:410
+#: main2.py:248 main2.py:298 main2.py:442 main2.py:447 main2.py:774
+#: pluginItems.py:176 pluginItems.py:179 pluginItems.py:287 pluginItems.py:299
+#: plugins/base.py:176 plugins/base.py:181 plugins/base.py:197
+#: plugins/base.py:206 plugins/dbg.py:426 plugins/dbg.py:435 plugins/dbg.py:588
+#: plugins/dbg.py:605 plugins/dbg.py:662 plugins/dbg.py:670
+#: plugins/graph.py:256 plugins/graph_widget_metasenselite.py:591
+#: plugins/graph_widgets.py:166 plugins/myplugin.py:62
+#: plugins/myplugin2/comtool_plugin_myplugin2/myplugin2.py:70
+#: plugins/protocol.py:466 plugins/protocol.py:480 plugins/protocol.py:489
+#: plugins/protocol.py:552
+msgid "Error"
+msgstr ""
+
+#: main2.py:248
+msgid "Load plugin failed"
+msgstr ""
+
+#: main2.py:269
+msgid "Load plugin fail"
+msgstr ""
+
+#: conn/conn_ssh.py:239 main2.py:292 pluginItems.py:156 pluginItems.py:169
+#: plugins/dbg.py:448 plugins/dbg.py:462
+msgid "Select file"
+msgstr ""
+
+#: main2.py:294
+msgid "python script (*.py)"
+msgstr ""
+
+#: main2.py:389
+msgid "New Window"
+msgstr ""
+
+#: main2.py:506 main2.py:515
+msgid "Restart now?"
+msgstr ""
+
+#: main2.py:507
+msgid "language changed to: "
+msgstr ""
+
+#: main2.py:507
+msgid "Restart software to take effect now?"
+msgstr ""
+
+#: main2.py:556 main2.py:557
+msgid "Closing ..."
+msgstr ""
+
+#: main2.py:659
+msgid "About"
+msgstr ""
+
+#: main2.py:681
+msgid "New versioin detected, please click learn more to download"
+msgstr ""
+
+#: main2.py:682
+msgid "Learn More"
+msgstr ""
+
+#: main2.py:683
+msgid "Skip this version"
+msgstr ""
+
+#: main2.py:684
+msgid "Remind me next time"
+msgstr ""
+
+#: main2.py:685
+msgid "Need update"
+msgstr ""
+
+#: pluginItems.py:59
+msgid "version not found in config of plugin:"
+msgstr ""
+
+#: conn/conn_tcp_udp.py:548 pluginItems.py:105
+msgid "Connection"
+msgstr ""
+
+#: pluginItems.py:130
+msgid "Load config"
+msgstr ""
+
+#: pluginItems.py:131
+msgid "Share config"
+msgstr ""
+
+#: pluginItems.py:158 pluginItems.py:171
+msgid "json file (*.json);;config file (*.conf);;All Files (*)"
+msgstr ""
+
+#: pluginItems.py:176
+msgid ""
+"Not support load global config file, you can copy config file mannually "
+"to "
+msgstr ""
+
+#: pluginItems.py:179
+msgid "Config is not for this plugin, config is for plugin:"
+msgstr ""
+
+#: pluginItems.py:182 plugins/dbg.py:384 plugins/dbg.py:591
+#: plugins/protocol.py:574 plugins/protocol.py:596
+msgid "Warning"
+msgstr ""
+
+#: pluginItems.py:183
+msgid "Config version not same, plugin config version:"
+msgstr ""
+
+#: pluginItems.py:184
+msgid "now"
+msgstr ""
+
+#: pluginItems.py:185
+msgid ""
+"this maybe lead to some problem, if happened, please remove it manually "
+"from config file"
+msgstr ""
+
+#: pluginItems.py:202
+msgid "Restart to load config?"
+msgstr ""
+
+#: pluginItems.py:238
+msgid "Change connection, auto close old connection"
+msgstr ""
+
+#: pluginItems.py:287
+msgid "Open file failed!"
+msgstr ""
+
+#: widgets.py:561 widgets.py:582
+msgid "Received"
+msgstr ""
+
+#: widgets.py:561 widgets.py:562 widgets.py:582 widgets.py:589
+msgid "bytes"
+msgstr ""
+
+#: widgets.py:562 widgets.py:589
+msgid "Sent"
+msgstr ""
+
+#: widgets.py:614
+msgid "Help"
+msgstr ""
+
+#: widgets.py:661
+msgid "Input remark"
+msgstr ""
+
+#: plugins/dbg.py:197 widgets.py:671 widgets.py:742
+msgid "Record"
+msgstr ""
+
+#: widgets.py:676
+msgid "Input value"
+msgstr ""
+
+#: widgets.py:678 widgets.py:703
+msgid "Select icon"
+msgstr ""
+
+#: plugins/graph_widgets.py:384 widgets.py:680
+msgid "Shortcut"
+msgstr ""
+
+#: widgets.py:682
+msgid "Press key to record, or click Cancel"
+msgstr ""
+
+#: plugins/dbg.py:419 widgets.py:685 widgets.py:703
+msgid "OK"
+msgstr ""
+
+#: widgets.py:686 widgets.py:729
+msgid "Cancel"
+msgstr ""
+
+#: conn/conn_serial.py:47
+msgid "Serial"
+msgstr ""
+
+#: conn/conn_serial.py:81
+msgid "Custom, input baudrate"
+msgstr ""
+
+#: conn/conn_serial.py:113 conn/conn_ssh.py:151 conn/conn_tcp_udp.py:112
+msgid "Port"
+msgstr ""
+
+#: conn/conn_serial.py:114
+msgid "Baudrate"
+msgstr ""
+
+#: conn/conn_serial.py:115
+msgid "DataBytes"
+msgstr ""
+
+#: conn/conn_serial.py:116
+msgid "Parity"
+msgstr ""
+
+#: conn/conn_serial.py:117
+msgid "Stopbits"
+msgstr ""
+
+#: conn/conn_serial.py:118
+msgid "Flow control"
+msgstr ""
+
+#: conn/conn_serial.py:152 conn/conn_serial.py:153
+msgid "Check to enable(usually output low level)"
+msgstr ""
+
+#: conn/conn_serial.py:154 conn/conn_serial.py:301 conn/conn_serial.py:393
+#: conn/conn_ssh.py:165 conn/conn_ssh.py:251 conn/conn_ssh.py:339
+#: conn/conn_tcp_udp.py:137 conn/conn_tcp_udp.py:331 conn/conn_tcp_udp.py:442
+msgid "OPEN"
+msgstr ""
+
+#: conn/conn_serial.py:207 conn/conn_serial.py:336
+msgid "Open Failed"
+msgstr ""
+
+#: conn/conn_serial.py:396 conn/conn_serial.py:399 conn/conn_ssh.py:342
+#: conn/conn_ssh.py:345 conn/conn_tcp_udp.py:445 conn/conn_tcp_udp.py:448
+msgid "CLOSE"
+msgstr ""
+
+#: conn/conn_serial.py:434 conn/conn_ssh.py:368 conn/conn_tcp_udp.py:505
+msgid "Reconnected"
+msgstr ""
+
+#: conn/conn_serial.py:465 conn/conn_ssh.py:413 conn/conn_tcp_udp.py:567
+msgid "Connection lose!"
+msgstr ""
+
+#: conn/conn_ssh.py:150
+msgid "Host"
+msgstr ""
+
+#: conn/conn_ssh.py:152
+msgid "User"
+msgstr ""
+
+#: conn/conn_ssh.py:153
+msgid "Password"
+msgstr ""
+
+#: conn/conn_ssh.py:154
+msgid "SSH key"
+msgstr ""
+
+#: conn/conn_ssh.py:155
+msgid "Saved"
+msgstr ""
+
+#: conn/conn_ssh.py:163
+msgid "File"
+msgstr ""
+
+#: conn/conn_ssh.py:222
+msgid "Input error"
+msgstr ""
+
+#: conn/conn_ssh.py:222
+msgid "Input"
+msgstr ""
+
+#: conn/conn_ssh.py:222
+msgid "error"
+msgstr ""
+
+#: conn/conn_ssh.py:241 plugins/dbg.py:450
+msgid "All Files (*)"
+msgstr ""
+
+#: conn/conn_ssh.py:295 conn/conn_tcp_udp.py:409
+msgid "Connect Failed"
+msgstr ""
+
+#: conn/conn_ssh.py:306
+msgid "Config error"
+msgstr ""
+
+#: conn/conn_ssh.py:333
+msgid "SSH pub key file path error"
+msgstr ""
+
+#: conn/conn_ssh.py:395 conn/conn_tcp_udp.py:526
+msgid "Closed by peer"
+msgstr ""
+
+#: conn/conn_ssh.py:400 conn/conn_tcp_udp.py:552
+msgid "Connection closed!"
+msgstr ""
+
+#: conn/conn_tcp_udp.py:107
+msgid "Protocol"
+msgstr ""
+
+#: conn/conn_tcp_udp.py:108
+msgid "Mode"
+msgstr ""
+
+#: conn/conn_tcp_udp.py:109
+msgid "Target"
+msgstr ""
+
+#: conn/conn_tcp_udp.py:132 conn/conn_tcp_udp.py:251
+msgid "All clients"
+msgstr ""
+
+#: conn/conn_tcp_udp.py:133
+msgid "Disconnect"
+msgstr ""
+
+#: conn/conn_tcp_udp.py:134
+msgid "Auto reconnect"
+msgstr ""
+
+#: conn/conn_tcp_udp.py:372 conn/conn_tcp_udp.py:497 conn/conn_tcp_udp.py:594
+msgid "Target error"
+msgstr ""
+
+#: conn/conn_tcp_udp.py:473
+msgid "Client connected:"
+msgstr ""
+
+#: conn/conn_tcp_udp.py:548
+msgid "closed!"
+msgstr ""
+
+#: plugins/base.py:81
+msgid "Closed"
+msgstr ""
+
+#: plugins/base.py:83
+msgid "Connecting"
+msgstr ""
+
+#: plugins/base.py:197
+msgid "Format error, should be like 00 01 02 03"
+msgstr ""
+
+#: plugins/base.py:206
+msgid "Escape is on, but escape error:"
+msgstr ""
+
+#: plugins/dbg.py:51
+msgid "Send Receive"
+msgstr ""
+
+#: plugins/dbg.py:68
+msgid "Shortcut:"
+msgstr ""
+
+#: plugins/dbg.py:69
+msgid "Full screen"
+msgstr ""
+
+#: plugins/dbg.py:70
+msgid "Send data"
+msgstr ""
+
+#: plugins/dbg.py:71
+msgid "Clear Send Area"
+msgstr ""
+
+#: plugins/dbg.py:72
+msgid "Clear Receive Area"
+msgstr ""
+
+#: plugins/dbg.py:149
+msgid "Receive Settings"
+msgstr ""
+
+#: plugins/dbg.py:150 plugins/dbg.py:182 plugins/protocol.py:261
+msgid "ASCII"
+msgstr ""
+
+#: plugins/dbg.py:151
+msgid ""
+"Show recived data as visible format, select decode method at top right "
+"corner"
+msgstr ""
+
+#: plugins/dbg.py:152 plugins/dbg.py:183 plugins/protocol.py:262
+msgid "HEX"
+msgstr ""
+
+#: plugins/dbg.py:153
+msgid "Show recived data as hex format"
+msgstr ""
+
+#: plugins/dbg.py:155
+msgid ""
+"Auto\n"
+"Linefeed\n"
+"ms"
+msgstr ""
+
+#: plugins/dbg.py:156 plugins/dbg.py:159
+msgid "Auto linefeed after interval, unit: ms"
+msgstr ""
+
+#: plugins/dbg.py:162
+msgid "Timestamp"
+msgstr ""
+
+#: plugins/dbg.py:163
+msgid ""
+"Add timestamp before received data, will automatically enable auto line "
+"feed"
+msgstr ""
+
+#: plugins/dbg.py:164
+msgid "Color"
+msgstr ""
+
+#: plugins/dbg.py:165
+msgid "Enable unix terminal color support, e.g. \\33[31;43mhello\\33[0m"
+msgstr ""
+
+#: plugins/dbg.py:166
+msgid "Display wrap"
+msgstr ""
+
+#: plugins/dbg.py:167
+msgid ""
+"When content in a line is too long, always auto wrap to show, and no "
+"scroll bar"
+msgstr ""
+
+#: plugins/dbg.py:181
+msgid "Send Settings"
+msgstr ""
+
+#: plugins/dbg.py:184 plugins/protocol.py:263
+msgid ""
+"Get send data as visible format, select encoding method at top right "
+"corner"
+msgstr ""
+
+#: plugins/dbg.py:185 plugins/protocol.py:264
+msgid "Get send data as hex format, e.g. hex '31 32 33' equal to ascii '123'"
+msgstr ""
+
+#: plugins/dbg.py:187
+msgid ""
+"Timed Send\n"
+"ms"
+msgstr ""
+
+#: plugins/dbg.py:188 plugins/dbg.py:191
+msgid "Timed send, unit: ms"
+msgstr ""
+
+#: plugins/dbg.py:194 plugins/protocol.py:266
+msgid "<CRLF>"
+msgstr ""
+
+#: plugins/dbg.py:195 plugins/protocol.py:267
+msgid "Select to send \\r\\n instead of \\n"
+msgstr ""
+
+#: plugins/dbg.py:198
+msgid "Record send data"
+msgstr ""
+
+#: plugins/dbg.py:199 plugins/protocol.py:269
+msgid "Escape"
+msgstr ""
+
+#: plugins/dbg.py:200 plugins/protocol.py:270
+msgid "Enable escape characters support like \\t \\r \\n \\x01 \\001"
+msgstr ""
+
+#: plugins/dbg.py:201
+msgid "Newline"
+msgstr ""
+
+#: plugins/dbg.py:202
+msgid "Auto add new line when send"
+msgstr ""
+
+#: plugins/dbg.py:230
+msgid "Auto line feed value error, must be integer"
+msgstr ""
+
+#: plugins/dbg.py:231
+msgid "Timed send value error, must be integer"
+msgstr ""
+
+#: plugins/dbg.py:242
+msgid "Open File"
+msgstr ""
+
+#: plugins/dbg.py:243
+msgid "Send File"
+msgstr ""
+
+#: plugins/dbg.py:244
+msgid "Clear History"
+msgstr ""
+
+#: plugins/dbg.py:247
+msgid "Sendding File"
+msgstr ""
+
+#: plugins/dbg.py:253
+msgid "Save log"
+msgstr ""
+
+#: plugins/dbg.py:256
+msgid "Cutom send"
+msgstr ""
+
+#: plugins/dbg.py:288
+msgid "Log path"
+msgstr ""
+
+#: plugins/dbg.py:289
+msgid "Auto new file"
+msgstr ""
+
+#: plugins/dbg.py:290
+msgid "When start a new connection, will automatically create a new log file"
+msgstr ""
+
+#: plugins/dbg.py:384
+msgid "linefeed always on if timestamp or record send is on"
+msgstr ""
+
+#: plugins/dbg.py:419
+msgid "History cleared!"
+msgstr ""
+
+#: plugins/dbg.py:426 plugins/graph.py:256 plugins/protocol.py:489
+msgid "Send data failed!"
+msgstr ""
+
+#: plugins/dbg.py:431
+msgid "Send file"
+msgstr ""
+
+#: plugins/dbg.py:435
+msgid "Send file failed!"
+msgstr ""
+
+#: plugins/dbg.py:464
+msgid "Log file (*.log);;txt file (*.txt);;All Files (*)"
+msgstr ""
+
+#: plugins/dbg.py:588
+msgid ""
+"File path error\n"
+"path"
+msgstr ""
+
+#: plugins/dbg.py:591
+msgid "Connect first please"
+msgstr ""
+
+#: plugins/dbg.py:594
+msgid "Sending file"
+msgstr ""
+
+#: plugins/dbg.py:605
+msgid "Time format error"
+msgstr ""
+
+#: plugins/dbg.py:662
+msgid "Send Error"
+msgstr ""
+
+#: plugins/dbg.py:670
+msgid "get data error"
+msgstr ""
+
+#: plugins/graph.py:48
+msgid "Graph"
+msgstr ""
+
+#: plugins/graph.py:54
+msgid "Double click graph item to add a graph widget"
+msgstr ""
+
+#: plugins/graph.py:54
+msgid "line chart plot protocol:"
+msgstr ""
+
+#: plugins/graph.py:64
+msgid "Full demo see:"
+msgstr ""
+
+#: plugins/graph.py:66
+msgid "Install comtool by <code>pip install comtool</code> first"
+msgstr ""
+
+#: plugins/graph.py:69
+msgid "For ASCII protocol(\"binary protocol\" not checked)"
+msgstr ""
+
+#: plugins/graph.py:72
+msgid "\"$\" means start of frame, end with \"\\n\" \",\" means separator"
+msgstr ""
+
+#: plugins/graph.py:73
+msgid ""
+"checksum is optional, checksum is sum of all bytes in frame except "
+"\",checksum\"."
+msgstr ""
+
+#: plugins/graph.py:74
+msgid "e.g."
+msgstr ""
+
+#: plugins/graph.py:99
+msgid "For binary protocol(\"binary protocol\" checked)"
+msgstr ""
+
+#: plugins/graph.py:196
+msgid "Double click to add a graph widget"
+msgstr ""
+
+#: plugins/graph.py:226
+msgid "Clear count"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:297 plugins/graph_widgets.py:50
+msgid "Remove"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:299
+msgid "Capture"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:304 plugins/graph_widgets.py:57
+msgid "Header:"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:306
+#: plugins/graph_widget_metasenselite.py:578
+#: plugins/graph_widget_metasenselite.py:580
+#: plugins/graph_widget_metasenselite.py:589 plugins/graph_widgets.py:59
+#: plugins/graph_widgets.py:153 plugins/graph_widgets.py:155
+#: plugins/graph_widgets.py:164
+msgid "Set"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:308
+msgid "RawCMD:"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:309
+msgid "AT+ISP=0\\r"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:310 plugins/myplugin.py:44
+#: plugins/myplugin2/comtool_plugin_myplugin2/myplugin2.py:52
+msgid "Send"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:315
+msgid "ISP"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:316
+msgid "LCD"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:317
+msgid "USB"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:318
+msgid "UART"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:319
+msgid "ANTIMMI"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:341
+msgid "Unit:auto "
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:348
+msgid " Fps:15   "
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:354
+msgid "  Ev:AE   "
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:357
+msgid ""
+"Protocol: 2Byte header + 2Byte length + 1Byte command + 1Byte output_mode"
+" + 1Byte Sensor Temp + 1Byte Driver Temp\n"
+" 4Bytes exposure time + 1Byte error code + 1Byte reserved1 + 1Byte res "
+"rows + 1Byte res cols\n"
+" 2Byte Frame ID + 1 Byte ISP version + 1 Byte reserved3\n"
+" frame data\n"
+" 1Byte checksum + 1Byte tail\n"
+" length count from Byte4 to the Byte before Checksum\n"
+"Protocol example code see help"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:394
+msgid "Binn:"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:396
+msgid "Baud:"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:399
+msgid "D:"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:401
+msgid "X:"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:403
+msgid "Y:"
+msgstr ""
+
+#: plugins/graph_widget_metasenselite.py:591 plugins/graph_widgets.py:166
+msgid "Format error"
+msgstr ""
+
+#: plugins/graph_widgets.py:51
+msgid "Clear"
+msgstr ""
+
+#: plugins/graph_widgets.py:52
+msgid "Range:"
+msgstr ""
+
+#: plugins/graph_widgets.py:54
+msgid "Enable"
+msgstr ""
+
+#: plugins/graph_widgets.py:56
+msgid "Binary Protocol"
+msgstr ""
+
+#: plugins/graph_widgets.py:60
+msgid ""
+"Protocol: header + 1Byte name length + name + 8Bytes x(double) + 8Bytes "
+"y(double) + 1Byte sum\n"
+"Protocol example code see help"
+msgstr ""
+
+#: plugins/graph_widgets.py:64
+msgid ""
+"Check this if you want to use binary protocol, or use ASCII protocol(e.g."
+" \"$data1,10.0,200.0\\n\"), more see help button on the top of window"
+msgstr ""
+
+#: plugins/myplugin.py:22
+msgid "my plugin"
+msgstr ""
+
+#: plugins/myplugin.py:62
+#: plugins/myplugin2/comtool_plugin_myplugin2/myplugin2.py:70
+msgid "Input data first please"
+msgstr ""
+
+#: plugins/protocol.py:58
+msgid "protocol"
+msgstr ""
+
+#: plugins/protocol.py:153
+msgid "Key mode"
+msgstr ""
+
+#: plugins/protocol.py:239
+msgid "En-decoding settings"
+msgstr ""
+
+#: plugins/protocol.py:243
+msgid "Custom, input name"
+msgstr ""
+
+#: plugins/protocol.py:244
+msgid "Load defaults"
+msgstr ""
+
+#: plugins/protocol.py:247 plugins/protocol.py:540 plugins/protocol.py:564
+#: plugins/protocol.py:567 plugins/protocol.py:587
+msgid "Save"
+msgstr ""
+
+#: plugins/protocol.py:249
+msgid "Delete"
+msgstr ""
+
+#: plugins/protocol.py:253
+msgid "Defaults"
+msgstr ""
+
+#: plugins/protocol.py:255
+msgid "Code"
+msgstr ""
+
+#: plugins/protocol.py:259
+msgid "Send settings"
+msgstr ""
+
+#: plugins/protocol.py:466
+msgid "Run decode error"
+msgstr ""
+
+#: plugins/protocol.py:480
+msgid "Run encode error"
+msgstr ""
+
+#: plugins/protocol.py:548
+msgid "decode and encode method should be in code"
+msgstr ""
+
+#: plugins/protocol.py:551
+msgid "Method error"
+msgstr ""
+
+#: plugins/protocol.py:574
+msgid "Please input code profile name first"
+msgstr ""
+
+#: plugins/protocol.py:596
+msgid "Please select a code profile name first to delete"
+msgstr ""
+
+#: plugins/terminal.py:674
+msgid "terminal"
+msgstr ""
+
+#: plugins/myplugin2/comtool_plugin_myplugin2/myplugin2.py:30
+msgid "my plugin2"
+msgstr ""
+
