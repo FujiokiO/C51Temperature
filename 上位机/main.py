@@ -20,7 +20,7 @@ class SerialApp:
 
         # Serial settings
         self.port_var = tk.StringVar(value="COM1")
-        self.baudrate_var = tk.StringVar(value="9600")
+        self.baudrate_var = tk.StringVar(value="19200")
 
         # Available options
         self.available_ports = ["COM1", "COM2", "COM3", "COM4", "COM5"]

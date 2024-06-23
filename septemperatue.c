@@ -73,9 +73,10 @@ void send_confirmation() {
 // 主函数
 void main() {
     // 串口初始化
-    SCON = 0x50;    
-    TMOD = 0x20;
-    TL1 = TH1 = 0xFD;
+    PCON |= 0x80;   // 设置SMOD为1，波特率加倍
+    SCON = 0x50;    // 设置串口为模式1（8位UART）
+    TMOD = 0x20;    // 设置定时器1为模式2（8位自动重装载）
+    TL1 = TH1 = 0xFD;  // 本来是 9600 Bauds @ 11.0592MHz，现在SMOD使其加倍到 19200 Bauds
     TR1 = 1;
         
     // 定时器0初始化
