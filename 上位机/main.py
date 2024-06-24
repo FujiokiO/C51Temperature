@@ -5,10 +5,11 @@ import pyqtgraph as pg
 from PySide6 import QtWidgets
 import threading
 import time
-import csv
 import serial
 import qt_material
 from queue import Queue
+import sqlite3
+from datetime import datetime
 
 
 class SerialHandler:
@@ -114,6 +115,53 @@ class PlotHandler:
         else:
             self.plot_widget.setXRange(0, 20)
 
+
+class DatabaseHandler:
+    def __init__(self, db_name="experiments.db"):
+        self.conn = sqlite3.connect(db_name)
+        self.create_tables()
+
+    def create_tables(self):
+        cursor = self.conn.cursor()
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS experiments (
+                id INTEGER PRIMARY KEY,
+                name TEXT,
+                start_time TEXT
+            )
+        ''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS data (
+                experiment_id INTEGER,
+                time REAL,
+                temperature REAL,
+                FOREIGN KEY(experiment_id) REFERENCES experiments(id)
+            )
+        ''')
+        self.conn.commit()
+
+    def add_experiment(self, name):
+        cursor = self.conn.cursor()
+        cursor.execute("INSERT INTO experiments (name, start_time) VALUES (?, ?)", (name, datetime.now().isoformat()))
+        self.conn.commit()
+        return cursor.lastrowid
+
+    def add_data(self, experiment_id, time, temperature):
+        cursor = self.conn.cursor()
+        cursor.execute("INSERT INTO data (experiment_id, time, temperature) VALUES (?, ?, ?)", (experiment_id, time, temperature))
+        self.conn.commit()
+
+    def get_experiments(self):
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT id, name, start_time FROM experiments")
+        return cursor.fetchall()
+
+    def get_data(self, experiment_id):
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT time, temperature FROM data WHERE experiment_id = ?", (experiment_id,))
+        return cursor.fetchall()
+
+
 class SerialApp:
     def __init__(self, root):
         self.root = root
@@ -121,6 +169,7 @@ class SerialApp:
 
         self.serial_handler = SerialHandler()
         self.plot_handler = PlotHandler()
+        self.db_handler = DatabaseHandler()
 
         self.port_var = tk.StringVar(value="COM1")
         self.baudrate_var = tk.StringVar(value="19200")
@@ -132,6 +181,7 @@ class SerialApp:
 
         self.times = []
         self.temps = []
+        self.current_experiment_id = None
 
         self.root.after(100, self.update_plot)
 
@@ -150,20 +200,11 @@ class SerialApp:
         self.baudrate_combobox = ttk.Combobox(control_frame, textvariable=self.baudrate_var, values=self.available_baudrates)
         self.baudrate_combobox.grid(row=0, column=3, sticky='w', padx=5, pady=5)
 
-        self.open_button = ttkb.Button(control_frame, text="打开串口", command=self.open_serial, bootstyle="success")
-        self.open_button.grid(row=1, column=0, columnspan=2, padx=5, pady=5, sticky='ew')
+        self.start_button = ttkb.Button(control_frame, text="开始实验", command=self.start_experiment, bootstyle="success")
+        self.start_button.grid(row=1, column=0, columnspan=2, padx=5, pady=5, sticky='ew')
 
-        self.close_button = ttkb.Button(control_frame, text="关闭串口", command=self.close_serial, state=tk.DISABLED, bootstyle="danger")
-        self.close_button.grid(row=1, column=2, columnspan=2, padx=5, pady=5, sticky='ew')
-
-        self.start_button = ttkb.Button(control_frame, text="开始", command=self.start_reading, bootstyle="primary")
-        self.start_button.grid(row=2, column=0, padx=5, pady=5, sticky='ew')
-
-        self.stop_button = ttkb.Button(control_frame, text="暂停", command=self.stop_reading, state=tk.DISABLED, bootstyle="warning")
-        self.stop_button.grid(row=2, column=1, padx=5, pady=5, sticky='ew')
-
-        self.save_button = ttkb.Button(control_frame, text="保存数据", command=self.save_data, bootstyle="info")
-        self.save_button.grid(row=2, column=2, columnspan=2, padx=5, pady=5, sticky='ew')
+        self.stop_button = ttkb.Button(control_frame, text="结束实验", command=self.stop_experiment, state=tk.DISABLED, bootstyle="danger")
+        self.stop_button.grid(row=1, column=2, columnspan=2, padx=5, pady=5, sticky='ew')
 
         self.current_temp_label = ttkb.Label(control_frame, text="当前温度: 0.0", bootstyle="inverse")
         self.current_temp_label.grid(row=3, column=0, columnspan=4, padx=5, pady=5, sticky='ew')
@@ -203,19 +244,39 @@ class SerialApp:
         self.set_pid_button = ttkb.Button(control_frame, text="设定PID参数", command=self.set_pid_parameters, bootstyle="primary")
         self.set_pid_button.grid(row=9, column=0, columnspan=2, padx=5, pady=5, sticky='ew')
 
+        tk.Label(control_frame, text="选择实验:").grid(row=10, column=0, sticky='e', padx=5, pady=5)
+        self.experiment_var = tk.StringVar()
+        self.experiment_combobox = ttk.Combobox(control_frame, textvariable=self.experiment_var)
+        self.experiment_combobox.grid(row=10, column=1, columnspan=3, sticky='ew', padx=5, pady=5)
+        self.experiment_combobox.bind("<<ComboboxSelected>>", self.load_experiment_data)
+
+        self.load_experiments()
+
+    def load_experiments(self):
+        experiments = self.db_handler.get_experiments()
+        self.experiment_combobox['values'] = [f"{exp[1]} ({exp[2]})" for exp in experiments]
+        self.experiment_map = {f"{exp[1]} ({exp[2]})": exp[0] for exp in experiments}
+
+    def start_experiment(self):
+        self.current_experiment_id = self.db_handler.add_experiment("实验 " + time.strftime("%Y-%m-%d %H:%M:%S"))
+        self.open_serial()
+        self.start_reading()
+
+    def stop_experiment(self):
+        self.close_serial()
+        self.stop_reading()
+        self.current_experiment_id = None
+
     def open_serial(self):
         port = self.port_var.get()
         baudrate = self.baudrate_var.get()
         self.serial_handler.open_serial(port, baudrate)
-        self.open_button.config(state=tk.DISABLED)
-        self.close_button.config(state=tk.NORMAL)
-        self.start_button.config(state=tk.NORMAL)
+        self.start_button.config(state=tk.DISABLED)
+        self.stop_button.config(state=tk.NORMAL)
 
     def close_serial(self):
         self.serial_handler.close_serial()
-        self.open_button.config(state=tk.NORMAL)
-        self.close_button.config(state=tk.DISABLED)
-        self.start_button.config(state=tk.DISABLED)
+        self.start_button.config(state=tk.NORMAL)
         self.stop_button.config(state=tk.DISABLED)
 
     def start_reading(self):
@@ -252,6 +313,8 @@ class SerialApp:
             self.plot_handler.update_plot(self.times, self.temps, current_time)
             self.current_temp_label.config(text=f"当前温度: {temp:.2f}°C")
             self.update_table(current_time, temp)
+            if self.current_experiment_id is not None:
+                self.db_handler.add_data(self.current_experiment_id, current_time, temp)
         self.root.after(100, self.update_plot)
 
     def update_table(self, current_time, temp):
@@ -259,14 +322,13 @@ class SerialApp:
         self.tree.insert("", "end", values=(time_str, f"{temp:.2f}"))
         self.tree.yview_moveto(1)
 
-    def save_data(self):
-        with open('temperature_data.csv', mode='w', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerow(["经过时间(s)", "时间", "温度(°C)"])
-            for t, temp in zip(self.times, self.temps):
-                time_str = time.strftime("%H:%M:%S", time.localtime(self.serial_handler.start_time + t))
-                writer.writerow([f"{t:.1f}", time_str, f"{temp:.2f}"])
-        print("数据已保存到 temperature_data.csv")
+    def load_experiment_data(self, event):
+        selected_experiment = self.experiment_var.get()
+        experiment_id = self.experiment_map[selected_experiment]
+        data = self.db_handler.get_data(experiment_id)
+        self.times = [d[0] for d in data]
+        self.temps = [d[1] for d in data]
+        self.plot_handler.update_plot(self.times, self.temps, self.times[-1] if self.times else 0)
 
     def on_closing(self):
         self.serial_handler.running = False
