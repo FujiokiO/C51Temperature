@@ -19,6 +19,7 @@ class SerialHandler:
         self.data_queue = Queue()
         self.last_temp = 0
         self.start_time = None
+        self.confirmation_flag = threading.Event()
 
     def open_serial(self, port, baudrate):
         try:
@@ -55,6 +56,7 @@ class SerialHandler:
                     elif buffer[1] == 0x06 and len(buffer) == 6:
                         if buffer[2] == 0x00 and buffer[3] == 0x00 and buffer[4] == 0x00:
                             print("收到确认帧")
+                            self.confirmation_flag.set()
                         else:
                             kp = buffer[2] / 10.0
                             ki = buffer[3] / 100.0
@@ -87,6 +89,9 @@ class SerialHandler:
                 self.serial_port.write(command)
             except ValueError:
                 print("无效的PID参数")
+
+    def confirmation_received(self):
+        return self.confirmation_flag.is_set()
 
 
 class PlotHandler:
@@ -263,9 +268,24 @@ class SerialApp:
         self.start_reading()
 
     def stop_experiment(self):
-        self.close_serial()
-        self.stop_reading()
-        self.current_experiment_id = None
+        self.serial_handler.set_temperature(0)  # 向单片机发送温度设为0的指令
+        # 等待确认帧
+        if self.wait_for_confirmation():
+            self.close_serial()
+            self.stop_reading()
+            self.current_experiment_id = None
+            self.load_experiments()  # 刷新实验列表
+        else:
+            print("未收到确认帧，无法安全关闭串口")
+
+    def wait_for_confirmation(self, timeout=5):
+        self.serial_handler.confirmation_flag.clear()  # 清除确认标志
+        start_time = time.time()
+        while time.time() - start_time < timeout:
+            if self.serial_handler.confirmation_received():
+                return True
+            time.sleep(0.1)
+        return False
 
     def open_serial(self):
         port = self.port_var.get()

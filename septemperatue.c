@@ -17,9 +17,9 @@
 int SetValue;
 
 // PID控制参数 (调整这些参数以获得更好的性能)
-float Kp = 0.5f;
-float Ki = 0.01f;
-float Kd = 0.1f;
+float Kp = 0.27f;
+float Ki = 0.015f;
+float Kd = 0.25f;
 
 // 误差变量
 int et;

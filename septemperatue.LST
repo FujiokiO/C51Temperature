@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/24/2024 12:43:23 PAGE 1   
+C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/24/2024 17:13:15 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE SEPTEMPERATUE
@@ -26,9 +26,9 @@ line level    source
   17          int SetValue;
   18          
   19          // PID控制参数 (调整这些参数以获得更好的性能)
-  20          float Kp = 0.5f;
-  21          float Ki = 0.01f;
-  22          float Kd = 0.1f;
+  20          float Kp = 0.27f;
+  21          float Ki = 0.015f;
+  22          float Kd = 0.25f;
   23          
   24          // 误差变量
   25          int et;
@@ -62,7 +62,7 @@ line level    source
   53          // 发送温度数据
   54          void send_temperature() {
   55   1          send_byte(0x55);  // 起始字节
-C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/24/2024 12:43:23 PAGE 2   
+C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/24/2024 17:13:15 PAGE 2   
 
   56   1          send_byte(0x00);
   57   1          send_byte(0x00);
@@ -126,7 +126,7 @@ line level    source
  115   1          
  116   1          // 应用积分限幅，防止积分饱和
  117   1          if (integral > 1000) integral = 1000;
-C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/24/2024 12:43:23 PAGE 3   
+C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/24/2024 17:13:15 PAGE 3   
 
  118   1          if (integral < -1000) integral = -1000;
  119   1      
@@ -190,7 +190,7 @@ line level    source
  177          void serial_isr() interrupt 4 {
  178   1          if (RI) {
  179   2              RI = 0;
-C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/24/2024 12:43:23 PAGE 4   
+C51 COMPILER V9.59.0.0   SEPTEMPERATUE                                                     06/24/2024 17:13:15 PAGE 4   
 
  180   2              Re_Buff[ReceiveCounts++] = SBUF;
  181   2              
