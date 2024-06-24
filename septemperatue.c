@@ -86,7 +86,7 @@ void main() {
     EA = 1;  // 使能全局中断
     
     // 设定值初始化
-    SetValue = 5000;  
+    SetValue = 0;  
     
     while (1) {
         // 主循环

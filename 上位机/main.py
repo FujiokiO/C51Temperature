@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+import ttkbootstrap as ttkb
 import pyqtgraph as pg
 from PySide6 import QtWidgets, QtCore
 import threading
@@ -17,6 +18,7 @@ class SerialApp:
 
         self.serial_port = None
         self.running = False
+        self.evaluating_pid = False
 
         # Serial settings
         self.port_var = tk.StringVar(value="COM1")
@@ -69,36 +71,40 @@ class SerialApp:
         control_frame = tk.Frame(self.root)
         control_frame.pack(side=tk.RIGHT, fill=tk.Y)
 
-        tk.Label(control_frame, text="串口号:").grid(row=0, column=0)
+        # 串口号和波特率设置放在同一行
+        tk.Label(control_frame, text="串口号:").grid(row=0, column=0, sticky='e', padx=5, pady=5)
         self.port_combobox = ttk.Combobox(control_frame, textvariable=self.port_var, values=self.available_ports)
-        self.port_combobox.grid(row=0, column=1)
+        self.port_combobox.grid(row=0, column=1, sticky='w', padx=5, pady=5)
 
-        tk.Label(control_frame, text="波特率:").grid(row=1, column=0)
+        tk.Label(control_frame, text="波特率:").grid(row=0, column=2, sticky='e', padx=5, pady=5)
         self.baudrate_combobox = ttk.Combobox(control_frame, textvariable=self.baudrate_var,
                                               values=self.available_baudrates)
-        self.baudrate_combobox.grid(row=1, column=1)
+        self.baudrate_combobox.grid(row=0, column=3, sticky='w', padx=5, pady=5)
 
-        self.open_button = tk.Button(control_frame, text="打开串口", command=self.open_serial)
-        self.open_button.grid(row=2, column=0, columnspan=2)
+        # 打开串口和关闭串口按钮居中
+        self.open_button = ttkb.Button(control_frame, text="打开串口", command=self.open_serial, bootstyle="success")
+        self.open_button.grid(row=1, column=0, columnspan=2, padx=5, pady=5, sticky='ew')
 
-        self.close_button = tk.Button(control_frame, text="关闭串口", command=self.close_serial, state=tk.DISABLED)
-        self.close_button.grid(row=3, column=0, columnspan=2)
+        self.close_button = ttkb.Button(control_frame, text="关闭串口", command=self.close_serial, state=tk.DISABLED,
+                                        bootstyle="danger")
+        self.close_button.grid(row=1, column=2, columnspan=2, padx=5, pady=5, sticky='ew')
 
-        self.start_button = tk.Button(control_frame, text="开始", command=self.start_reading)
-        self.start_button.grid(row=4, column=0, columnspan=2)
+        self.start_button = ttkb.Button(control_frame, text="开始", command=self.start_reading, bootstyle="primary")
+        self.start_button.grid(row=2, column=0, padx=5, pady=5, sticky='ew')
 
-        self.stop_button = tk.Button(control_frame, text="暂停", command=self.stop_reading, state=tk.DISABLED)
-        self.stop_button.grid(row=5, column=0, columnspan=2)
+        self.stop_button = ttkb.Button(control_frame, text="暂停", command=self.stop_reading, state=tk.DISABLED,
+                                       bootstyle="warning")
+        self.stop_button.grid(row=2, column=1, padx=5, pady=5, sticky='ew')
 
-        self.save_button = tk.Button(control_frame, text="保存数据", command=self.save_data)
-        self.save_button.grid(row=6, column=0, columnspan=2)
+        self.save_button = ttkb.Button(control_frame, text="保存数据", command=self.save_data, bootstyle="info")
+        self.save_button.grid(row=2, column=2, columnspan=2, padx=5, pady=5, sticky='ew')
 
-        self.current_temp_label = tk.Label(control_frame, text="当前温度: 0.0")
-        self.current_temp_label.grid(row=7, column=0, columnspan=2)
+        self.current_temp_label = ttkb.Label(control_frame, text="当前温度: 0.0", bootstyle="inverse")
+        self.current_temp_label.grid(row=3, column=0, columnspan=4, padx=5, pady=5, sticky='ew')
 
         # Add a Treeview with a vertical scrollbar
         tree_frame = tk.Frame(control_frame)
-        tree_frame.grid(row=8, column=0, columnspan=2, sticky='nsew')
+        tree_frame.grid(row=4, column=0, columnspan=4, padx=5, pady=5, sticky='nsew')
         tree_scrollbar = tk.Scrollbar(tree_frame, orient="vertical")
         self.tree = ttk.Treeview(tree_frame, columns=("time", "temperature"), show='headings',
                                  yscrollcommand=tree_scrollbar.set)
@@ -108,33 +114,36 @@ class SerialApp:
         self.tree.heading("temperature", text="温度")
         self.tree.pack(fill="both", expand=True)
 
-        tk.Label(control_frame, text="设定温度:").grid(row=9, column=0)
+        tk.Label(control_frame, text="设定温度:").grid(row=5, column=0, sticky='e', padx=5, pady=5)
         self.set_temp_var = tk.StringVar()
-        self.set_temp_entry = tk.Entry(control_frame, textvariable=self.set_temp_var)
-        self.set_temp_entry.grid(row=9, column=1)
-        self.set_temp_button = tk.Button(control_frame, text="设定", command=self.set_temperature)
-        self.set_temp_button.grid(row=10, column=0, columnspan=2)
+        self.set_temp_entry = ttkb.Entry(control_frame, textvariable=self.set_temp_var)
+        self.set_temp_entry.grid(row=5, column=1, sticky='w', padx=5, pady=5)
+        self.set_temp_button = ttkb.Button(control_frame, text="设定", command=self.set_temperature,
+                                           bootstyle="primary")
+        self.set_temp_button.grid(row=5, column=2, columnspan=2, padx=5, pady=5, sticky='ew')
 
-        self.request_temp_button = tk.Button(control_frame, text="读取温度", command=self.request_temperature)
-        self.request_temp_button.grid(row=11, column=0, columnspan=2)
-
-        tk.Label(control_frame, text="Kp:").grid(row=12, column=0)
+        tk.Label(control_frame, text="Kp:").grid(row=6, column=0, sticky='e', padx=5, pady=5)
         self.kp_var = tk.StringVar(value="0.5")
-        self.kp_entry = tk.Entry(control_frame, textvariable=self.kp_var)
-        self.kp_entry.grid(row=12, column=1)
+        self.kp_entry = ttkb.Entry(control_frame, textvariable=self.kp_var)
+        self.kp_entry.grid(row=6, column=1, sticky='w', padx=5, pady=5)
 
-        tk.Label(control_frame, text="Ki:").grid(row=13, column=0)
+        tk.Label(control_frame, text="Ki:").grid(row=7, column=0, sticky='e', padx=5, pady=5)
         self.ki_var = tk.StringVar(value="0.01")
-        self.ki_entry = tk.Entry(control_frame, textvariable=self.ki_var)
-        self.ki_entry.grid(row=13, column=1)
+        self.ki_entry = ttkb.Entry(control_frame, textvariable=self.ki_var)
+        self.ki_entry.grid(row=7, column=1, sticky='w', padx=5, pady=5)
 
-        tk.Label(control_frame, text="Kd:").grid(row=14, column=0)
+        tk.Label(control_frame, text="Kd:").grid(row=8, column=0, sticky='e', padx=5, pady=5)
         self.kd_var = tk.StringVar(value="0.1")
-        self.kd_entry = tk.Entry(control_frame, textvariable=self.kd_var)
-        self.kd_entry.grid(row=14, column=1)
+        self.kd_entry = ttkb.Entry(control_frame, textvariable=self.kd_var)
+        self.kd_entry.grid(row=8, column=1, sticky='w', padx=5, pady=5)
 
-        self.set_pid_button = tk.Button(control_frame, text="设定PID参数", command=self.set_pid_parameters)
-        self.set_pid_button.grid(row=15, column=0, columnspan=2)
+        self.set_pid_button = ttkb.Button(control_frame, text="设定PID参数", command=self.set_pid_parameters,
+                                          bootstyle="primary")
+        self.set_pid_button.grid(row=9, column=0, columnspan=2, padx=5, pady=5, sticky='ew')
+
+        self.evaluate_pid_button = ttkb.Button(control_frame, text="评估PID", command=self.evaluate_pid,
+                                               bootstyle="primary")
+        self.evaluate_pid_button.grid(row=9, column=2, columnspan=2, padx=5, pady=5, sticky='ew')
 
     def open_serial(self):
         port = self.port_var.get()
@@ -191,9 +200,11 @@ class SerialApp:
                             ki = buffer[3] / 100.0
                             kd = buffer[4] / 10.0
                             print(f"收到确认帧: Kp={kp}, Ki={ki}, Kd={kd}")
+                            if self.evaluating_pid:
+                                # 开始评估PID
+                                self.evaluate_pid_procedure()
                     buffer = bytearray()  # 清空缓冲区
             time.sleep(0.01)
-
 
     def stop_reading(self):
         self.running = False
@@ -215,12 +226,6 @@ class SerialApp:
             except ValueError:
                 print("无效的温度值")
 
-    def request_temperature(self):
-        if self.serial_port and self.serial_port.is_open:
-            command = bytes([0x55, 0x02, 0x00, 0x00, 0x00, 0xaa])
-            self.serial_port.write(command)
-            print("请求当前温度")
-
     def set_pid_parameters(self):
         if self.serial_port and self.serial_port.is_open:
             try:
@@ -234,6 +239,43 @@ class SerialApp:
                 self.serial_port.write(command)
             except ValueError:
                 print("无效的PID参数")
+
+    def evaluate_pid(self):
+        self.evaluating_pid = True
+        self.set_pid_parameters()
+
+    def evaluate_pid_procedure(self):
+        self.set_temperature_to_0()
+
+    def set_temperature_to_0(self):
+        if self.serial_port and self.serial_port.is_open:
+            command = bytes([0x55, 0x01, 0x00, 0x00, 0x00, 0xaa])
+            self.serial_port.write(command)
+            print("设定冷却，降至室温")
+            self.root.after(1000, self.check_temperature_to_21)
+
+    def check_temperature_to_21(self):
+        if self.last_temp <= 21.5:
+            self.set_temperature_to_80()
+        else:
+            self.root.after(1000, self.check_temperature_to_21)
+
+    def set_temperature_to_80(self):
+        if self.serial_port and self.serial_port.is_open:
+            command = bytes([0x55, 0x01, 0x00, 0x1F, 0x40, 0xaa])  # 8000 -> 0x1F40
+            self.serial_port.write(command)
+            print("设定温度为80°")
+            self.start_time = time.time()
+            self.times.clear()
+            self.temps.clear()
+            self.root.after(1000, self.check_temperature_to_80)
+
+    def check_temperature_to_80(self):
+        if self.last_temp >= 79.5:
+            self.evaluating_pid = False
+            print("升温到80°完成")
+        else:
+            self.root.after(1000, self.check_temperature_to_80)
 
     def start_pyqtgraph(self):
         self.qapp = QtWidgets.QApplication([])
@@ -273,7 +315,7 @@ class SerialApp:
             self.plot_widget.setXRange(0, max(self.times))
 
             # 更新当前温度标签
-            self.current_temp_label.config(text=f"当前温度: {temp:.1f}°C")
+            self.current_temp_label.config(text=f"当前温度: {temp:.2f}°C")
 
             # 更新表格
             self.update_table(current_time, temp)
@@ -283,7 +325,7 @@ class SerialApp:
 
     def update_table(self, current_time, temp):
         time_str = time.strftime("%H:%M:%S", time.localtime())
-        self.tree.insert("", "end", values=(time_str, f"{temp:.1f}"))
+        self.tree.insert("", "end", values=(time_str, f"{temp:.2f}"))
 
         # Scroll to the last row
         self.tree.yview_moveto(1)
@@ -294,27 +336,8 @@ class SerialApp:
             writer.writerow(["经过时间(s)", "时间", "温度(°C)"])
             for t, temp in zip(self.times, self.temps):
                 time_str = time.strftime("%H:%M:%S", time.localtime(self.start_time + t))
-                writer.writerow([f"{t:.1f}", time_str, f"{temp:.1f}"])
+                writer.writerow([f"{t:.1f}", time_str, f"{temp:.2f}"])
         print("数据已保存到 temperature_data.csv")
-
-    def simulate_readings(self):
-        temp = 20.0
-        time_interval = 1  # seconds
-        self.start_time = time.time()
-        self.times.clear()
-        self.temps.clear()
-        for i in range(50):  # 模拟50个数据点
-            if not self.running:
-                break
-            current_time = i * time_interval
-            temp += (50 - temp) / 10
-            self.last_temp = temp
-            self.update_plot(current_time, temp)
-            self.update_table(current_time, temp)
-            time.sleep(time_interval)
-        self.running = False
-        self.start_button.config(state=tk.NORMAL)
-        self.stop_button.config(state=tk.DISABLED)
 
     def on_closing(self):
         self.running = False
@@ -326,8 +349,8 @@ class SerialApp:
         self.plot_app.quit()
 
 
-if __name__    == "__main__":
-    root = tk.Tk()
+if __name__ == "__main__":
+    root = ttkb.Window(themename="darkly")  # 使用ttkbootstrap主题
     app = SerialApp(root)
     root.protocol("WM_DELETE_WINDOW", app.on_closing)
     root.mainloop()
