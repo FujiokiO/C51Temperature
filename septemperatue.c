@@ -60,16 +60,6 @@ void send_temperature() {
     send_byte(0xaa);  // 结束字节
 }
 
-// 发送确认帧
-void send_confirmation() {
-    send_byte(0x55); 
-    send_byte(0x06); 
-    send_byte(0x00);
-    send_byte(0x00);
-    send_byte(0x00);
-    send_byte(0xaa);
-}
-
 // 主函数
 void main() {
     // 串口初始化
@@ -92,6 +82,7 @@ void main() {
     EX0 = 1;
     EX1 = 1;
     ES = 1;  // 使能串口中断
+	PS = 1;  // 提高串口中断优先级
     EA = 1;  // 使能全局中断
     
     // 设定值初始化
@@ -195,14 +186,27 @@ void serial_isr() interrupt 4 {
             if ((Re_Buff[0] == 0x55) && (Re_Buff[1] == 0x01) && (Re_Buff[5] == 0xaa)) {
                 SetValue = (Re_Buff[3] << 8) | Re_Buff[4];
                 integral = 0; // 重置积分项
-                send_confirmation();
+                // 发送确认帧
+				send_byte(0x55); 
+                send_byte(0x06); 
+                send_byte(0x00);
+                send_byte(0x00);
+                send_byte(0x00);
+                send_byte(0xaa);
             }
             // 处理设置PID参数的命令
             else if ((Re_Buff[0] == 0x55) && (Re_Buff[1] == 0x02) && (Re_Buff[5] == 0xaa)) {
                 Kp = Re_Buff[2] / 10.0;
                 Ki = Re_Buff[3] / 100.0;
                 Kd = Re_Buff[4] / 10.0;
-                send_confirmation();
+                
+                // 发送确认帧附带当前PID参数
+                send_byte(0x55);  // 起始字节
+                send_byte(0x06);  // 命令字节
+                send_byte((u8)(Kp * 10));  // Kp
+                send_byte((u8)(Ki * 100));  // Ki
+                send_byte((u8)(Kd * 10));  // Kd
+                send_byte(0xaa);  // 结束字节
             }
         }
     }
@@ -211,4 +215,3 @@ void serial_isr() interrupt 4 {
         TI = 0;
     }
 }
-
