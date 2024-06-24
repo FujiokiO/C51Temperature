@@ -18,7 +18,6 @@ class SerialHandler:
         self.data_queue = Queue()
         self.last_temp = 0
         self.start_time = None
-        self.evaluating_pid = False
 
     def open_serial(self, port, baudrate):
         try:
@@ -60,8 +59,6 @@ class SerialHandler:
                             ki = buffer[3] / 100.0
                             kd = buffer[4] / 10.0
                             print(f"收到确认帧: Kp={kp}, Ki={ki}, Kd={kd}")
-                            if self.evaluating_pid:
-                                self.evaluate_pid_procedure()
                     buffer = bytearray()
             time.sleep(0.01)
 
@@ -90,46 +87,6 @@ class SerialHandler:
             except ValueError:
                 print("无效的PID参数")
 
-    def evaluate_pid(self):
-        self.evaluating_pid = True
-        self.set_pid_parameters()
-
-    def evaluate_pid_procedure(self):
-        self.set_temperature_to_0()
-
-    def set_temperature_to_0(self):
-        if self.serial_port and self.serial_port.is_open:
-            command = bytes([0x55, 0x01, 0x00, 0x00, 0x00, 0xaa])
-            self.serial_port.write(command)
-            print("设定冷却，降至室温")
-            time.sleep(1)
-            self.check_temperature_to_21()
-
-    def check_temperature_to_21(self):
-        if self.last_temp <= 21.5:
-            self.set_temperature_to_80()
-        else:
-            time.sleep(1)
-            self.check_temperature_to_21()
-
-    def set_temperature_to_80(self):
-        if self.serial_port and self.serial_port.is_open:
-            command = bytes([0x55, 0x01, 0x00, 0x1F, 0x40, 0xaa])  # 8000 -> 0x1F40
-            self.serial_port.write(command)
-            print("设定温度为80°")
-            self.start_time = time.time()
-            self.data_queue.queue.clear()
-            time.sleep(1)
-            self.check_temperature_to_80()
-
-    def check_temperature_to_80(self):
-        if self.last_temp >= 79.5:
-            self.evaluating_pid = False
-            print("升温到80°完成")
-        else:
-            time.sleep(1)
-            self.check_temperature_to_80()
-
 
 class PlotHandler:
     def __init__(self):
@@ -142,14 +99,20 @@ class PlotHandler:
         self.plot_widget.setLabel('left', '温度', units='°C')
         self.plot_widget.setLabel('bottom', '时间', units='s')
         self.curve = self.plot_widget.plot(pen='y')
+        # 确保启用鼠标交互
+        self.plot_widget.setMouseEnabled(x=True, y=True)
+        # 设置自动平移
+        self.plot_widget.setAutoPan(x=True, y=False)
         self.plot_widget.show()
-
         qt_material.apply_stylesheet(self.plot_app, theme='dark_teal.xml')
 
-    def update_plot(self, times, temps):
+    def update_plot(self, times, temps, current_time):
         self.curve.setData(times, temps)
-        self.plot_widget.setXRange(0, max(times))
-
+        # 设置 x 轴范围，使其显示最近 20 秒的数据
+        if current_time > 20:
+            self.plot_widget.setXRange(current_time - 20, current_time)
+        else:
+            self.plot_widget.setXRange(0, 20)
 
 class SerialApp:
     def __init__(self, root):
@@ -240,9 +203,6 @@ class SerialApp:
         self.set_pid_button = ttkb.Button(control_frame, text="设定PID参数", command=self.set_pid_parameters, bootstyle="primary")
         self.set_pid_button.grid(row=9, column=0, columnspan=2, padx=5, pady=5, sticky='ew')
 
-        self.evaluate_pid_button = ttkb.Button(control_frame, text="评估PID", command=self.evaluate_pid, bootstyle="primary")
-        self.evaluate_pid_button.grid(row=9, column=2, columnspan=2, padx=5, pady=5, sticky='ew')
-
     def open_serial(self):
         port = self.port_var.get()
         baudrate = self.baudrate_var.get()
@@ -284,15 +244,12 @@ class SerialApp:
         except ValueError:
             print("无效的PID参数")
 
-    def evaluate_pid(self):
-        self.serial_handler.evaluate_pid()
-
     def update_plot(self):
         while not self.serial_handler.data_queue.empty():
             current_time, temp = self.serial_handler.data_queue.get()
             self.times.append(current_time)
             self.temps.append(temp)
-            self.plot_handler.update_plot(self.times, self.temps)
+            self.plot_handler.update_plot(self.times, self.temps, current_time)
             self.current_temp_label.config(text=f"当前温度: {temp:.2f}°C")
             self.update_table(current_time, temp)
         self.root.after(100, self.update_plot)
