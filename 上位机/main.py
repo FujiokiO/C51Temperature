@@ -182,9 +182,18 @@ class SerialApp:
                         self.data_queue.put((current_time, self.last_temp))
                     elif buffer[1] == 0x06 and len(buffer) == 6:
                         # 解析确认帧
-                        print("收到确认帧")
+                        if buffer[2] == 0x00 and buffer[3] == 0x00 and buffer[4] == 0x00:
+                            # 设定温度确认
+                            print("收到确认帧")
+                        else:
+                            # 设定PID参数确认
+                            kp = buffer[2] / 10.0
+                            ki = buffer[3] / 100.0
+                            kd = buffer[4] / 10.0
+                            print(f"收到确认帧: Kp={kp}, Ki={ki}, Kd={kd}")
                     buffer = bytearray()  # 清空缓冲区
             time.sleep(0.01)
+
 
     def stop_reading(self):
         self.running = False
@@ -223,7 +232,6 @@ class SerialApp:
                 kd_byte = int(kd * 10)
                 command = bytes([0x55, 0x02, kp_byte, ki_byte, kd_byte, 0xaa])
                 self.serial_port.write(command)
-                print(f"设定PID参数: Kp={kp}, Ki={ki}, Kd={kd}")
             except ValueError:
                 print("无效的PID参数")
 
